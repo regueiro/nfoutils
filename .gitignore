@@ -1,0 +1,10 @@
+.classpath
+.settings
+.project
+target/
+
+.springBeans
+/old
+
+/doc
+/log
