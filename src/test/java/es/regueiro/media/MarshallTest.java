@@ -3,7 +3,6 @@ package es.regueiro.media;
 import static org.junit.Assert.*;
 
 import java.nio.file.Paths;
-import java.util.Collection;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,9 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sun.xml.internal.ws.util.Pool.Marshaller;
 
-import es.regueiro.nfoutils.files.FolderScanner;
 import es.regueiro.nfoutils.files.MediaFolderManager;
 import es.regueiro.nfoutils.model.Movie;
 
