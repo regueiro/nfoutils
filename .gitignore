@@ -8,3 +8,6 @@ target/
 
 /doc
 /log
+/build
+/bin
+.gradle/
