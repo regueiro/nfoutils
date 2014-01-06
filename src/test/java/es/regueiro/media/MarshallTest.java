@@ -2,6 +2,7 @@ package es.regueiro.media;
 
 import static org.junit.Assert.*;
 
+import java.nio.file.Paths;
 import java.util.Collection;
 
 import org.junit.After;
@@ -10,18 +11,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sun.xml.internal.ws.util.Pool.Marshaller;
+
 import es.regueiro.nfoutils.files.FolderScanner;
 import es.regueiro.nfoutils.files.MediaFolderManager;
 import es.regueiro.nfoutils.model.Movie;
 
-
-public class FolderScannerTest {
+public class MarshallTest {
 
 	MediaFolderManager manager;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+
 	}
 
 	@AfterClass
@@ -31,8 +33,8 @@ public class FolderScannerTest {
 	@Before
 	public void setUp() throws Exception {
 		manager = new MediaFolderManager();
-		
-//		manager.addMediaFolder("P:\\Peliculas");
+
+		// manager.addMediaFolder("P:\\Peliculas");
 	}
 
 	@After
@@ -41,14 +43,12 @@ public class FolderScannerTest {
 
 	@Test
 	public void test() {
-		//TODO: Create a proper test with temp folders and mocked movie nfos.
-		FolderScanner scanner = new FolderScanner(manager.getMediaFoldersCollection());
 		
-		Collection<Movie> movies = scanner.scanForMovies();
-
-		for (Movie movie:movies) {
-			System.out.println(movie);
-		}
+		Movie movie = es.regueiro.nfoutils.jaxb.Marshaller.unMarshall(Paths.get("P:\\Peliculas\\1080p\\2001 - A Space Odyssey (Commentary) (1968) [1080p]\\2001 - A Space Odyssey (Commentary).nfo"));
+		
+		
+		es.regueiro.nfoutils.jaxb.Marshaller.marshall(movie);
+		
 	}
 
 }

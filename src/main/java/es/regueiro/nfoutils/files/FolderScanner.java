@@ -16,23 +16,20 @@ import java.util.EnumSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.jaxb.Marshaller;
 import es.regueiro.nfoutils.model.Movie;
-import es.regueiro.nfoutils.parser.NfoParser;
-import es.regueiro.nfoutils.parser.impl.SaxNfoParser;
+import es.regueiro.nfoutils.properties.Properties;
 
 /**
  * A folder scanner that can search for movies in given folders
  */
 public class FolderScanner {
-
+	
 	/** The logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(FolderScanner.class);
+	private static final Logger logger = LoggerFactory.getLogger(FolderScanner.class);
 
-	/** The folder names to ignore when walking the media folder list. */
-	private static final Collection<String> ignoreFolders = Arrays.asList(
-			".actors", "extrafanart", "extrathumbs");
-
+	
+	
 	/** The media folder collection. */
 	private Collection<Path> mediaFolders;
 
@@ -63,13 +60,12 @@ public class FolderScanner {
 	 * Scan for movies.
 	 * 
 	 * @param recursive
-	 *            true if we want to recursively search the subfolders or
-	 *            false if we only want to scan the root folder
+	 *            true if we want to recursively search the subfolders or false
+	 *            if we only want to scan the root folder
 	 * @return the collection of movies found
 	 */
 	public Collection<Movie> scanForMovies(boolean recursive) {
-		EnumSet<FileVisitOption> opts = EnumSet
-				.of(FileVisitOption.FOLLOW_LINKS);
+		EnumSet<FileVisitOption> opts = EnumSet.of(FileVisitOption.FOLLOW_LINKS);
 		int maxDepth;
 		MovieNfoFileVisitor visitor = new MovieNfoFileVisitor();
 
@@ -109,14 +105,7 @@ public class FolderScanner {
 	 *            the nfo file
 	 */
 	private void parseMovieNfo(Path nfoFile) {
-//		Movie movie = new Movie();
-//		movie.setTitle(nfoFile.toString());
-//
-//		logger.info("Created movie: " + movie.toString());
-//		movies.add(movie);
-		
-		NfoParser parser = new SaxNfoParser();
-		movies.add(parser.parseMovie(nfoFile));
+		movies.add(Marshaller.unMarshall(nfoFile));
 	}
 
 	/**
@@ -133,13 +122,12 @@ public class FolderScanner {
 		 * java.nio.file.attribute.BasicFileAttributes)
 		 */
 		@Override
-		public FileVisitResult preVisitDirectory(Path dir,
-				BasicFileAttributes attrs) throws IOException {
-			if (ignoreFolders.contains(dir.getFileName().toString())) {
+		public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+			if (Properties.getIgnoreFolders().contains(dir.getFileName().toString())) {
 
 				return FileVisitResult.SKIP_SUBTREE;
 			} else {
-				//logger.debug("Scanning folder: " + dir.toString());
+				// logger.debug("Scanning folder: " + dir.toString());
 
 				return FileVisitResult.CONTINUE;
 			}
@@ -152,12 +140,10 @@ public class FolderScanner {
 		 * java.nio.file.attribute.BasicFileAttributes)
 		 */
 		@Override
-		public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-				throws IOException {
+		public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-			if (attrs.isRegularFile()
-					&& file.getFileName().toString().endsWith(".nfo")) {
-				//logger.debug("Found nfo file: " + file.toString());
+			if (attrs.isRegularFile() && file.getFileName().toString().endsWith(".nfo")) {
+				// logger.debug("Found nfo file: " + file.toString());
 				parseMovieNfo(file);
 			}
 			return FileVisitResult.CONTINUE;
@@ -171,8 +157,7 @@ public class FolderScanner {
 		 * java.io.IOException)
 		 */
 		@Override
-		public FileVisitResult visitFileFailed(Path file, IOException exc)
-				throws IOException {
+		public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
 			logger.error("IO Error when trying to access " + file.toString());
 
 			return super.visitFileFailed(file, exc);
