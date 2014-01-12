@@ -43,7 +43,8 @@ public class MarshallTest {
 		
 		Movie movie = es.regueiro.nfoutils.jaxb.Marshaller.unMarshall(Paths.get("P:\\Peliculas\\1080p\\2001 - A Space Odyssey (Commentary) (1968) [1080p]\\2001 - A Space Odyssey (Commentary).nfo"));
 		
-		
+		movie.cleanEmptyTags();
+		System.out.println(movie.toString());
 		es.regueiro.nfoutils.jaxb.Marshaller.marshall(movie);
 		
 	}
