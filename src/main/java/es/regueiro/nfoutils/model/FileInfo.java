@@ -11,23 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "fileinfo")
 public class FileInfo {
-	// movie fileinfo streamdetails
-	// movie fileinfo streamdetails audio
-	// movie fileinfo streamdetails audio channels
-	// movie fileinfo streamdetails audio codec
-	// movie fileinfo streamdetails audio language
-	// movie fileinfo streamdetails subtitle
-	// movie fileinfo streamdetails subtitle language
-	// movie fileinfo streamdetails video
-	// movie fileinfo streamdetails video aspect
-	// movie fileinfo streamdetails video codec
-	// movie fileinfo streamdetails video durationinseconds
-	// movie fileinfo streamdetails video height
-	// movie fileinfo streamdetails video width
 
-	/*
-	 * inner class holding file informations
-	 */
 	@XmlElement(name = "streamdetails")
 	StreamDetails streamDetails;
 
@@ -61,18 +45,24 @@ public class FileInfo {
 		}
 
 	}
+
 	static class Audio {
-		
+
 		@XmlElement(name = "channels")
 		private String channels;
 		@XmlElement(name = "codec")
 		private String codec;
 		@XmlElement(name = "language")
 		private String language;
+		@XmlElement(name = "bitrate")
+		private String bitrate;
+		@XmlElement(name = "longlanguage")
+		private String longLanguage;
 
 		@Override
 		public String toString() {
-			return "Audio [channels=" + channels + ", codec=" + codec + ", language=" + language + "]";
+			return "Audio [channels=" + channels + ", codec=" + codec + ", language=" + language + ", bitrate="
+					+ bitrate + ", longLanguage=" + longLanguage + "]";
 		}
 
 	}
@@ -88,11 +78,25 @@ public class FileInfo {
 		private int height;
 		@XmlElement(name = "width")
 		private int width;
+		@XmlElement(name = "bitrate")
+		private String bitrate;
+		@XmlElement(name = "encodedSettings")
+		private String encodedSettings;
+		@XmlElement(name = "language")
+		private String language;
+		@XmlElement(name = "longlanguage")
+		private String longlanguage;
+		@XmlElement(name = "multiView_Count")
+		private String multiViewCount;
+		@XmlElement(name = "scantype")
+		private String scanType;
 
 		@Override
 		public String toString() {
-			return "Video [codec=" + codec + ", aspect=" + aspect + ", width=" + width + ", height=" + height
-					+ ", durationinseconds=" + durationinseconds + "]";
+			return "Video [aspect=" + aspect + ", codec=" + codec + ", durationinseconds=" + durationinseconds
+					+ ", height=" + height + ", width=" + width + ", bitrate=" + bitrate + ", encodedSettings="
+					+ encodedSettings + ", language=" + language + ", longlanguage=" + longlanguage
+					+ ", multiViewCount=" + multiViewCount + ", scanType=" + scanType + "]";
 		}
 
 	}
@@ -100,10 +104,13 @@ public class FileInfo {
 	static class Subtitle {
 		@XmlElement(name = "language")
 		private String language;
+		@XmlElement(name = "longlanguage")
+		private String longLanguage;
 
 		@Override
 		public String toString() {
-			return "Subtitle [language=" + language + "]";
+			return "Subtitle [language=" + language + ", longLanguage=" + longLanguage + "]";
 		}
+
 	}
 }
