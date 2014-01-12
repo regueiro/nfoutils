@@ -1,10 +1,16 @@
 package es.regueiro.nfoutils.util;
 
 import java.io.IOException;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,15 +20,21 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import es.regueiro.nfoutils.properties.Properties;
+
 public class TagFinder {
 
-	public static String find(Path file) {
+	static Set<String> values = new TreeSet<>();
+	
+	public static Set<String> find(Path file) {
 
 		String result = null;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -35,10 +47,27 @@ public class TagFinder {
 
 			NodeList tags = document.getElementsByTagName("*");
 
-			Set<String> values = new TreeSet<String>();
-
 			for (int i = 0; i < tags.getLength(); i++) {
 				String tag = tags.item(i).getNodeName();
+				
+				if (tag.equals("code")) {
+					System.out.println("###code: "+tags.item(i).getTextContent());
+				}
+				if (tag.equals("epbookmark")) {
+					System.out.println("###epbookmark: "+tags.item(i).getTextContent());
+				}
+//				if (tag.equals("certification")) {
+//					System.out.println("###certification: "+tags.item(i).getTextContent());
+//				}
+				if (tag.equals("premiered")) {
+					System.out.println("###premiered: "+tags.item(i).getTextContent());
+				}
+//				if (tag.equals("releasedate")) {
+//					System.out.println("###releasedate: "+tags.item(i).getTextContent());
+//				}
+				if (tag.equals("status")) {
+					System.out.println("###status: "+tags.item(i).getTextContent());
+				}
 
 				Node prev = getPreviousSiblingElement(tags.item(i));
 				Node next = getNextSiblingElement(tags.item(i));
@@ -78,16 +107,16 @@ public class TagFinder {
 				values.add(tag);
 			}
 
-			for (String s : values) {
-				System.out.println(s);
-			}
+//			for (String s : values) {
+//				System.out.println(s);
+//			}
 
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return result;
+		return values;
 
 	}
 	
@@ -116,8 +145,70 @@ public class TagFinder {
 	  } 
 
 
-	public static void main(String[] args) {
-		find(Paths.get("D:/xbmc_videodb_2014-01-12/videodb.xml"));
+	public static void main(String[] args) throws IOException {
+//		find(Paths.get("D:/xbmc_videodb_2014-01-12/videodb.xml"));
+		
+		NfoFileVisitor visitor = new NfoFileVisitor();
+		Files.walkFileTree(Paths.get("T:/Series"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+		Files.walkFileTree(Paths.get("T:/SeriesOrg"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+//		Files.walkFileTree(Paths.get("H:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+		
+		for (String s : TagFinder.values) {
+			System.out.println(s);
+		}
+	}
+	
+	private static class NfoFileVisitor extends SimpleFileVisitor<Path> {
+		private static final Logger logger = LoggerFactory.getLogger(NfoFileVisitor.class);
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * java.nio.file.SimpleFileVisitor#preVisitDirectory(java.lang.Object,
+		 * java.nio.file.attribute.BasicFileAttributes)
+		 */
+		@Override
+		public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+			if (Properties.getIgnoreFolders().contains(dir.getFileName().toString())) {
+
+				return FileVisitResult.SKIP_SUBTREE;
+			} else {
+//				 logger.debug("Scanning folder: " + dir.toString());
+
+				return FileVisitResult.CONTINUE;
+			}
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.nio.file.SimpleFileVisitor#visitFile(java.lang.Object,
+		 * java.nio.file.attribute.BasicFileAttributes)
+		 */
+		@Override
+		public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+
+			if (attrs.isRegularFile() && file.getFileName().toString().endsWith(".nfo")) {
+				 logger.debug("Found nfo file: " + file.toString());
+				find(file);
+			}
+			return FileVisitResult.CONTINUE;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * java.nio.file.SimpleFileVisitor#visitFileFailed(java.lang.Object,
+		 * java.io.IOException)
+		 */
+		@Override
+		public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+//			logger.error("IO Error when trying to access " + file.toString());
+
+			return super.visitFileFailed(file, exc);
+		}
+
 	}
 
 }
