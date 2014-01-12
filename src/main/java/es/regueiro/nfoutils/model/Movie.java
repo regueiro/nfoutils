@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import java.lang.reflect.Field;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,17 +60,17 @@ public class Movie {
 	private Collection<Fanart> fanarts;
 
 	@XmlElement(name = "year")
-	private int year;
+	private Integer year;
 	@XmlElement(name = "releasedate")
 	private String date;
 	@XmlElement(name = "rating")
-	private String rating;
+	private Float rating;
 	@XmlElement(name = "votes")
 	private String votes;
 	@XmlElement(name = "top250")
-	private String top250;
+	private Integer top250;
 	@XmlElement(name = "runtime")
-	private String runtime;
+	private Integer runtime;
 	@XmlElement(name = "playcount")
 	private Integer playcount;
 	@XmlElement(name = "trailer")
@@ -90,14 +92,14 @@ public class Movie {
 	@XmlElement(name = "tmdbid")
 	private String tmdbId;
 	@XmlElement(name = "premiered")
-	private String premiered;
+	private LocalDate premiered;
 	@XmlElement(name = "tag")
 	private Collection<String> tags;
 
 	@XmlElement(name = "lastplayed")
-	private String lastplayed;
+	private LocalDate lastplayed;
 	@XmlElement(name = "epbookmark")
-	private String epbookmark;
+	private Float epbookmark;
 	@XmlElement(name = "filenameandpath")
 	private String filenameandpath;
 	@XmlElement(name = "file")
@@ -111,11 +113,11 @@ public class Movie {
 	@XmlElement(name = "code")
 	private String code;
 	@XmlElement(name = "aired")
-	private String aired;
+	private LocalDate aired;
 	@XmlElement(name = "resume")
 	private Resume resume;
 	@XmlElement(name = "dateadded")
-	private String dateadded;
+	private LocalDateTime dateadded;
 	@XmlElement(name = "art")
 	private Art art;
 

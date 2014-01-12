@@ -28,6 +28,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import es.regueiro.nfoutils.model.Movie;
 import es.regueiro.nfoutils.properties.Properties;
 
 public class TagFinder {
@@ -149,10 +150,12 @@ public class TagFinder {
 //		find(Paths.get("D:/xbmc_videodb_2014-01-12/videodb.xml"));
 		
 		NfoFileVisitor visitor = new NfoFileVisitor();
-		Files.walkFileTree(Paths.get("T:/Series"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
-		Files.walkFileTree(Paths.get("T:/SeriesOrg"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
-//		Files.walkFileTree(Paths.get("H:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
-		
+		Files.walkFileTree(Paths.get("P:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+		Files.walkFileTree(Paths.get("T:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+		Files.walkFileTree(Paths.get("H:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+//		Files.walkFileTree(Paths.get("T:/Series"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+//		Files.walkFileTree(Paths.get("T:/SeriesOrg"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
+
 		for (String s : TagFinder.values) {
 			System.out.println(s);
 		}
@@ -190,7 +193,8 @@ public class TagFinder {
 
 			if (attrs.isRegularFile() && file.getFileName().toString().endsWith(".nfo")) {
 				 logger.debug("Found nfo file: " + file.toString());
-				find(file);
+//				find(file);
+				 Movie movie = es.regueiro.nfoutils.jaxb.Marshaller.unMarshall(file);
 			}
 			return FileVisitResult.CONTINUE;
 		}

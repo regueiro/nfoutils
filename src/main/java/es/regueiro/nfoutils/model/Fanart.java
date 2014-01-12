@@ -25,7 +25,11 @@ public class Fanart {
 
 	@Override
 	public String toString() {
-		return "Fanart [thumbs=" + Arrays.toString(thumbs.toArray()) + "]";
+		if (thumbs != null) {
+			return "Fanart [thumbs=" + Arrays.toString(thumbs.toArray()) + "]";
+		} else {
+			return "Fanart [thumbs=" + thumbs + "]";
+		}
 	}
 
 }

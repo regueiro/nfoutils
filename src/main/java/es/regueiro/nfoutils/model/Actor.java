@@ -5,6 +5,7 @@ import java.net.URL;
 public class Actor {
 	private String name;
 	private String role;
+	private Integer order;
 	private URL thumb;
 
 	public String getName() {
@@ -31,9 +32,17 @@ public class Actor {
 		this.thumb = thumb;
 	}
 
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+
 	@Override
 	public String toString() {
-		return "Actor [name=" + name + ", role=" + role + ", thumb=" + thumb + "]";
+		return "Actor [name=" + name + ", role=" + role + ", order=" + order + ", thumb=" + thumb + "]";
 	}
 
 }

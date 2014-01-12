@@ -26,22 +26,22 @@ public class FileInfo {
 
 	static class StreamDetails {
 
-		@XmlElement(name = "video")
-		private Video video;
+		@XmlElement(name = "video", type = Video.class)
+		private Collection<Video> videos;
 		@XmlElement(name = "audio", type = Audio.class)
 		private Collection<Audio> audios;
 		@XmlElement(name = "subtitle", type = Subtitle.class)
 		private Collection<Subtitle> subtitles;
 
 		public StreamDetails() {
-			this.video = new Video();
+			this.videos = new ArrayList<>();
 			this.audios = new ArrayList<>();
 			this.subtitles = new ArrayList<>();
 		}
 
 		@Override
 		public String toString() {
-			return "StreamDetails [video=" + video + ", audios=" + audios + ", subtitles=" + subtitles + "]";
+			return "StreamDetails [video=" + videos+ ", audios=" + audios + ", subtitles=" + subtitles + "]";
 		}
 
 	}
@@ -49,7 +49,7 @@ public class FileInfo {
 	static class Audio {
 
 		@XmlElement(name = "channels")
-		private String channels;
+		private Integer channels;
 		@XmlElement(name = "codec")
 		private String codec;
 		@XmlElement(name = "language")
@@ -69,15 +69,15 @@ public class FileInfo {
 
 	static class Video {
 		@XmlElement(name = "aspect")
-		private String aspect;
+		private Float aspect;
 		@XmlElement(name = "codec")
 		private String codec;
 		@XmlElement(name = "durationinseconds")
-		private int durationinseconds;
+		private Integer durationinseconds;
 		@XmlElement(name = "height")
-		private int height;
+		private Integer height;
 		@XmlElement(name = "width")
-		private int width;
+		private Integer width;
 		@XmlElement(name = "bitrate")
 		private String bitrate;
 		@XmlElement(name = "encodedSettings")
@@ -90,14 +90,10 @@ public class FileInfo {
 		private String multiViewCount;
 		@XmlElement(name = "scantype")
 		private String scanType;
+		@XmlElement(name = "stereomode")
+		private String stereomode;
 
-		@Override
-		public String toString() {
-			return "Video [aspect=" + aspect + ", codec=" + codec + ", durationinseconds=" + durationinseconds
-					+ ", height=" + height + ", width=" + width + ", bitrate=" + bitrate + ", encodedSettings="
-					+ encodedSettings + ", language=" + language + ", longlanguage=" + longlanguage
-					+ ", multiViewCount=" + multiViewCount + ", scanType=" + scanType + "]";
-		}
+		
 
 	}
 
