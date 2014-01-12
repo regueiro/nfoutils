@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import java.lang.reflect.Field;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +70,7 @@ public class Movie {
 	@XmlElement(name = "runtime")
 	private String runtime;
 	@XmlElement(name = "playcount")
-	private int playcount;
+	private Integer playcount;
 	@XmlElement(name = "trailer")
 	private String trailer;
 	@XmlElement(name = "certification")
@@ -81,36 +83,46 @@ public class Movie {
 	private String banner;
 	@XmlElement(name = "fanart")
 	private String fanart;
-
-	// New tags from tinymediamanager
 	@XmlElement(name = "set")
 	private String set;
 	@XmlElement(name = "watched")
-	private boolean watched = false;
+	private Boolean watched;
 	@XmlElement(name = "tmdbid")
 	private String tmdbId;
-	// @XmlElement(name = "fileinfo", type=FileInfo.class)
-	// private FileInfo fileinfo;
 	@XmlElement(name = "premiered")
 	private String premiered;
 	@XmlElement(name = "tag")
 	private Collection<String> tags;
 
-	/** not supported tags, but used to retrain in NFO. */
-	@XmlElement
-	private String epbookmark;
-	@XmlElement
+	@XmlElement(name = "lastplayed")
 	private String lastplayed;
-	@XmlElement
+	@XmlElement(name = "epbookmark")
+	private String epbookmark;
+	@XmlElement(name = "filenameandpath")
+	private String filenameandpath;
+	@XmlElement(name = "file")
+	private String file;
+	@XmlElement(name = "path")
+	private String path;
+	@XmlElement(name = "basepath")
+	private String basepath;
+	@XmlElement(name = "status")
 	private String status;
-	@XmlElement
+	@XmlElement(name = "code")
 	private String code;
-	@XmlElement
+	@XmlElement(name = "aired")
 	private String aired;
-	@XmlElement
-	private Object resume;
-	@XmlElement
+	@XmlElement(name = "resume")
+	private Resume resume;
+	@XmlElement(name = "dateadded")
 	private String dateadded;
+	@XmlElement(name = "art")
+	private Art art;
+
+	@XmlElement(name = "fileinfo", type = FileInfo.class)
+	private Collection<FileInfo> fileinfos;
+
+	// Extra tags from tinymediamanager
 	@XmlElement
 	private Object keywords;
 	@XmlElement
@@ -124,18 +136,49 @@ public class Movie {
 		this.studios = new ArrayList<>();
 		this.actors = new ArrayList<>();
 		this.fanarts = new ArrayList<>();
+		this.tags = new ArrayList<>();
+		this.fileinfos = new ArrayList<>();
+	}
+
+	public void cleanEmptyTags() {
+		for (Field field : Movie.class.getDeclaredFields()) {
+			if (field.getType().equals(String.class)) {
+				field.setAccessible(true);
+				Object tempField;
+				try {
+					tempField = field.get(this);
+					if (tempField != null) {
+						String value = (String) tempField;
+
+						if (value.equals("")) {
+							field.set(this, null);
+						}
+					}
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
 	}
 
 	@Override
 	public String toString() {
-		return "Movie [folder=" + folder + "\nnfo=" + nfo + "\nimdbID=" + imdbID + "\ntitle=" + title
-				+ "\noriginalTitle=" + originalTitle + "\nsortTitle=" + sortTitle + "\noutline=" + outline + "\nplot="
-				+ plot + "\ntagline=" + tagline + "\ndirectors=" + directors + "\nwriters=" + writers + "\ngenres="
-				+ genres + "\ncountries=" + countries + "\nstudios=" + studios + "\nactors=" + actors + "\nthumbs="
-				+ thumbs + "\nfanarts=" + fanarts + "\nyear=" + year + "\ndate=" + date + "\nrating=" + rating
-				+ "\nvotes=" + votes + "\ntop250=" + top250 + "\nruntime=" + runtime + "\nplaycount=" + playcount
-				+ "\ntrailer=" + trailer + "\ncertification=" + certification + "\nmpaa=" + mpaa + "\nposter=" + poster
-				+ "\nbanner=" + banner + "\nfanart=" + fanart + "]";
+		return "Movie [folder=" + folder + "\n nfo=" + nfo + "\n imdbID=" + imdbID + "\n title=" + title
+				+ "\n originalTitle=" + originalTitle + "\n sortTitle=" + sortTitle + "\n outline=" + outline
+				+ "\n plot=" + plot + "\n tagline=" + tagline + "\n directors=" + directors + "\n writers=" + writers
+				+ "\n genres=" + genres + "\n countries=" + countries + "\n studios=" + studios + "\n actors=" + actors
+				+ "\n thumbs=" + thumbs + "\n fanarts=" + fanarts + "\n year=" + year + "\n date=" + date
+				+ "\n rating=" + rating + "\n votes=" + votes + "\n top250=" + top250 + "\n runtime=" + runtime
+				+ "\n playcount=" + playcount + "\n trailer=" + trailer + "\n certification=" + certification
+				+ "\n mpaa=" + mpaa + "\n poster=" + poster + "\n banner=" + banner + "\n fanart=" + fanart + "\n set="
+				+ set + "\n watched=" + watched + "\n tmdbId=" + tmdbId + "\n premiered=" + premiered + "\n tags="
+				+ tags + "\n lastplayed=" + lastplayed + "\n epbookmark=" + epbookmark + "\n filenameandpath="
+				+ filenameandpath + "\n file=" + file + "\n path=" + path + "\n basepath=" + basepath + "\n status="
+				+ status + "\n code=" + code + "\n aired=" + aired + "\n resume=" + resume + "\n dateadded="
+				+ dateadded + "\n art=" + art + "\n fileinfos=" + fileinfos + "\n keywords=" + keywords + "\n url="
+				+ url + "]";
 	}
 
 }
