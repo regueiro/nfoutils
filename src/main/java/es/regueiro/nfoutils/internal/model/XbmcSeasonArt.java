@@ -1,12 +1,13 @@
 package es.regueiro.nfoutils.internal.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+import es.regueiro.nfoutils.media.Cleanable;
+
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcSeasonArt {
+public class XbmcSeasonArt implements Cleanable {
 	@XmlAttribute(name = "num")
 	private Integer num;
 
@@ -36,6 +37,19 @@ public class XbmcSeasonArt {
 
 	public void setBanner(String banner) {
 		this.banner = banner;
+	}
+
+	@Override
+	public void cleanEmptyTags() {
+		if (fanart != null && fanart.isEmpty()) {
+			fanart = null;
+		}
+		if (poster != null && poster.isEmpty()) {
+			poster = null;
+		}
+		if (banner != null && banner.isEmpty()) {
+			banner = null;
+		}
 	}
 
 	@Override

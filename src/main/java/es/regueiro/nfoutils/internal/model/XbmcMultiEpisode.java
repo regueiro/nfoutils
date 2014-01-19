@@ -1,12 +1,16 @@
 package es.regueiro.nfoutils.internal.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.internal.jaxb.Marshaller;
 import es.regueiro.nfoutils.media.MultiEpisode;
 
 public class XbmcMultiEpisode extends XbmcNfoFile implements MultiEpisode {
@@ -47,9 +51,17 @@ public class XbmcMultiEpisode extends XbmcNfoFile implements MultiEpisode {
 	}
 
 	@Override
-	public void save() {
-		// TODO Auto-generated method stub
-
+	public void save() throws IOException, JAXBException {
+		long start = 0;
+		if (logger.isTraceEnabled()) {
+			start = System.nanoTime();
+		}
+		cleanEmptyTags();
+		Marshaller.marshall(this, XbmcMultiEpisode.class);
+		if (logger.isTraceEnabled()) {
+			long end = System.nanoTime();
+			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);
+		}
 	}
 
 }

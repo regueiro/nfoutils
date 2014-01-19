@@ -1,12 +1,26 @@
 package es.regueiro.nfoutils.internal.model;
 
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-public class XbmcActor {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+
+import es.regueiro.nfoutils.internal.util.TagCleaner;
+import es.regueiro.nfoutils.media.Cleanable;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+public class XbmcActor implements Cleanable {
 	private String name;
 	private String role;
 	private Integer order;
-	private URL thumb;
+	@XmlElement(name = "thumb")
+	private List<XbmcThumb> thumbs;
+
+	public XbmcActor() {
+		this.thumbs = new ArrayList<>();
+	}
 
 	public String getName() {
 		return name;
@@ -24,12 +38,12 @@ public class XbmcActor {
 		this.role = role;
 	}
 
-	public URL getThumb() {
-		return thumb;
+	public List<XbmcThumb> getThumbs() {
+		return thumbs;
 	}
 
-	public void setThumb(URL thumb) {
-		this.thumb = thumb;
+	public void setThumbs(List<XbmcThumb> thumbs) {
+		this.thumbs = thumbs;
 	}
 
 	public Integer getOrder() {
@@ -42,7 +56,12 @@ public class XbmcActor {
 
 	@Override
 	public String toString() {
-		return "Actor [name=" + name + ", role=" + role + ", order=" + order + ", thumb=" + thumb + "]";
+		return "Actor [name=" + name + ", role=" + role + ", order=" + order + ", thumbs=" + thumbs + "]";
+	}
+
+	@Override
+	public void cleanEmptyTags() {
+		TagCleaner.cleanEmptyTags(this, XbmcActor.class);
 	}
 
 }

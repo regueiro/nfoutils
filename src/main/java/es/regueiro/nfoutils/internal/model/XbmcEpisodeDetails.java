@@ -1,21 +1,22 @@
 package es.regueiro.nfoutils.internal.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import java.lang.reflect.Field;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.internal.jaxb.Marshaller;
+import es.regueiro.nfoutils.internal.util.TagCleaner;
 import es.regueiro.nfoutils.media.Episode;
 
 @XmlRootElement(name = "episodedetails")
@@ -39,9 +40,9 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	@XmlElement(name = "studio", type = String.class)
 	private List<String> studios;
 	@XmlElement(name = "director", type = String.class)
-	private Collection<String> directors;
+	private List<String> directors;
 	@XmlElement(name = "credits", type = String.class)
-	private Collection<String> credits;
+	private List<String> credits;
 	@XmlElement(name = "actor", type = XbmcActor.class)
 	private List<XbmcActor> actors;
 	@XmlElement(name = "thumb", type = XbmcThumb.class)
@@ -49,13 +50,15 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	@XmlElement(name = "uniqueid")
 	private String uniqueId;
 	@XmlElement(name = "displayseason")
-	private String displaySeason;
+	private Integer displaySeason;
 	@XmlElement(name = "displayepisode")
-	private String displayEpisode;
+	private Integer displayEpisode;
+	@XmlElement(name = "displayafterseason")
+	private Integer displayAfterSeason;
 	@XmlElement(name = "season")
-	private String season;
+	private Integer season;
 	@XmlElement(name = "episode")
-	private String episode;
+	private Integer episode;
 	@XmlElement(name = "year")
 	private Integer year;
 	@XmlElement(name = "rating")
@@ -102,7 +105,7 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	private XbmcArt art;
 
 	@XmlElement(name = "fileinfo", type = XbmcFileInfo.class)
-	private Collection<XbmcFileInfo> fileinfos;
+	private List<XbmcFileInfo> fileinfos;
 
 	/*
 	 * ###Extra tags###
@@ -143,25 +146,7 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	}
 
 	public void cleanEmptyTags() {
-		for (Field field : XbmcEpisodeDetails.class.getDeclaredFields()) {
-			if (field.getType().equals(String.class)) {
-				field.setAccessible(true);
-				Object tempField;
-				try {
-					tempField = field.get(this);
-					if (tempField != null) {
-						String value = (String) tempField;
-
-						if (value.equals("")) {
-							field.set(this, null);
-						}
-					}
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					logger.error(e.getMessage(), e);
-				}
-
-			}
-		}
+		TagCleaner.cleanEmptyTags(this, XbmcEpisodeDetails.class);
 	}
 
 	@Override
@@ -180,9 +165,17 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	}
 
 	@Override
-	public void save() {
-		// TODO Auto-generated method stub
-		
+	public void save() throws IOException, JAXBException {
+		long start = 0;
+		if (logger.isTraceEnabled()) {
+			start = System.nanoTime();
+		}
+		cleanEmptyTags();
+		Marshaller.marshall(this, XbmcEpisodeDetails.class);
+		if (logger.isTraceEnabled()) {
+			long end = System.nanoTime();
+			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);
+		}
 	}
 
 }

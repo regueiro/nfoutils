@@ -6,9 +6,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
+import es.regueiro.nfoutils.media.Cleanable;
+
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "thumb")
-public class XbmcThumb {
+public class XbmcThumb implements Cleanable {
 
 	@XmlAttribute(name = "preview")
 	private String preview;
@@ -49,6 +50,25 @@ public class XbmcThumb {
 
 	public void setThumb(String thumb) {
 		this.thumb = thumb;
+	}
+
+	@Override
+	public void cleanEmptyTags() {
+		if (preview != null && preview.isEmpty()) {
+			preview = null;
+		}
+
+		if (type != null && type.isEmpty()) {
+			type = null;
+		}
+
+		if (season != null && season.isEmpty()) {
+			season = null;
+		}
+
+		if (thumb != null && thumb.isEmpty()) {
+			thumb = null;
+		}
 	}
 
 	@Override

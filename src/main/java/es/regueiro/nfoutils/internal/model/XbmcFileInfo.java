@@ -1,16 +1,18 @@
 package es.regueiro.nfoutils.internal.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import es.regueiro.nfoutils.internal.util.TagCleaner;
+import es.regueiro.nfoutils.media.Cleanable;
+
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "fileinfo")
-public class XbmcFileInfo {
+public class XbmcFileInfo implements Cleanable {
 
 	@XmlElement(name = "streamdetails")
 	StreamDetails streamDetails;
@@ -20,18 +22,23 @@ public class XbmcFileInfo {
 	}
 
 	@Override
+	public void cleanEmptyTags() {
+		TagCleaner.cleanEmptyTags(this, XbmcFileInfo.class);
+	}
+
+	@Override
 	public String toString() {
 		return "Fileinfo [streamDetails=" + streamDetails + "]";
 	}
 
-	static class StreamDetails {
+	static class StreamDetails implements Cleanable {
 
 		@XmlElement(name = "video", type = Video.class)
-		private Collection<Video> videos;
+		private List<Video> videos;
 		@XmlElement(name = "audio", type = Audio.class)
-		private Collection<Audio> audios;
+		private List<Audio> audios;
 		@XmlElement(name = "subtitle", type = Subtitle.class)
-		private Collection<Subtitle> subtitles;
+		private List<Subtitle> subtitles;
 
 		public StreamDetails() {
 			this.videos = new ArrayList<>();
@@ -44,9 +51,14 @@ public class XbmcFileInfo {
 			return "StreamDetails [videos=" + videos + ", audios=" + audios + ", subtitles=" + subtitles + "]";
 		}
 
+		@Override
+		public void cleanEmptyTags() {
+			TagCleaner.cleanEmptyTags(this, StreamDetails.class);
+		}
+
 	}
 
-	static class Audio {
+	static class Audio implements Cleanable {
 
 		@XmlElement(name = "channels")
 		private Integer channels;
@@ -67,11 +79,16 @@ public class XbmcFileInfo {
 					+ bitrate + ", longLanguage=" + longLanguage + "]";
 		}
 
+		@Override
+		public void cleanEmptyTags() {
+			TagCleaner.cleanEmptyTags(this, Audio.class);
+		}
+
 	}
 
-	static class Video {
+	static class Video implements Cleanable {
 		@XmlElement(name = "aspect")
-		private Float aspect;
+		private Double aspect;
 		@XmlElement(name = "codec")
 		private String codec;
 		@XmlElement(name = "durationinseconds")
@@ -80,6 +97,8 @@ public class XbmcFileInfo {
 		private Integer height;
 		@XmlElement(name = "width")
 		private Integer width;
+		@XmlElement(name = "stereomode")
+		private String stereoMode;
 
 		// Extra tags
 		@XmlElement(name = "bitrate")
@@ -106,22 +125,25 @@ public class XbmcFileInfo {
 		private String multiViewCount;
 		@XmlElement(name = "scantype")
 		private String scanType;
-		@XmlElement(name = "stereomode")
-		private String stereomode;
 
 		@Override
 		public String toString() {
-			return "Video [aspect=" + aspect + ", codec=" + codec + ", durationInSeconds=" + durationInSeconds
-					+ ", height=" + height + ", width=" + width + ", bitrate=" + bitrate + ", bitrateMax=" + bitrateMax
-					+ ", bitrateMode=" + bitrateMode + ", codecIdInfo=" + codecIdInfo + ", container=" + container
-					+ ", duration=" + duration + ", encodedSettings=" + encodedSettings + ", format=" + format
-					+ ", language=" + language + ", longlanguage=" + longlanguage + ", multiViewCount="
-					+ multiViewCount + ", scanType=" + scanType + ", stereomode=" + stereomode + "]";
+			return "Video:\naspect=" + aspect + "\ncodec=" + codec + "\ndurationInSeconds=" + durationInSeconds
+					+ "\nheight=" + height + "\nwidth=" + width + "\nstereoMode=" + stereoMode + "\nbitrate=" + bitrate
+					+ "\nbitrateMax=" + bitrateMax + "\nbitrateMode=" + bitrateMode + "\ncodecIdInfo=" + codecIdInfo
+					+ "\ncontainer=" + container + "\nduration=" + duration + "\nencodedSettings=" + encodedSettings
+					+ "\nformat=" + format + "\nlanguage=" + language + "\nlonglanguage=" + longlanguage
+					+ "\nmultiViewCount=" + multiViewCount + "\nscanType=" + scanType;
+		}
+
+		@Override
+		public void cleanEmptyTags() {
+			TagCleaner.cleanEmptyTags(this, Video.class);
 		}
 
 	}
 
-	static class Subtitle {
+	static class Subtitle implements Cleanable {
 		@XmlElement(name = "language")
 		private String language;
 
@@ -134,5 +156,11 @@ public class XbmcFileInfo {
 			return "Subtitle [language=" + language + ", longLanguage=" + longLanguage + "]";
 		}
 
+		@Override
+		public void cleanEmptyTags() {
+			TagCleaner.cleanEmptyTags(this, Subtitle.class);
+		}
+
 	}
+
 }

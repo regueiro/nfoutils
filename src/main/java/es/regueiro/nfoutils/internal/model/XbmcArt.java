@@ -3,12 +3,14 @@ package es.regueiro.nfoutils.internal.model;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+import es.regueiro.nfoutils.internal.util.TagCleaner;
+import es.regueiro.nfoutils.media.Cleanable;
+
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcArt {
+public class XbmcArt implements Cleanable {
 
 	private String fanart;
 	private String poster;
@@ -79,6 +81,11 @@ public class XbmcArt {
 	public String toString() {
 		return "Art [fanart=" + fanart + ", poster=" + poster + ", banner=" + banner + ", clearart=" + clearart
 				+ ", clearlogo=" + clearlogo + ", landscape=" + landscape + ", seasonArts=" + seasonArts + "]";
+	}
+
+	@Override
+	public void cleanEmptyTags() {
+		TagCleaner.cleanEmptyTags(this, XbmcArt.class);
 	}
 
 }

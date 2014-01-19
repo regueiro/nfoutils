@@ -6,9 +6,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import es.regueiro.nfoutils.media.Cleanable;
+
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "episodeguide")
-public class XbmcEpisodeGuide {
+public class XbmcEpisodeGuide implements Cleanable {
 
 	@XmlElement
 	private String url;
@@ -34,6 +35,16 @@ public class XbmcEpisodeGuide {
 	@Override
 	public String toString() {
 		return "EpisodeGuide:\nurl=" + url + "\ncache=" + cache;
+	}
+
+	@Override
+	public void cleanEmptyTags() {
+		if (url != null && url.isEmpty()) {
+			url = null;
+		}
+		if (cache != null && cache.isEmpty()) {
+			cache = null;
+		}
 	}
 
 }
