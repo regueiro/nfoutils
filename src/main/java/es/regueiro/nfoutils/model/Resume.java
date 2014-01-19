@@ -1,22 +1,22 @@
 package es.regueiro.nfoutils.model;
 
 public class Resume {
-	private Float position;
-	private Float total;
+	private Double position;
+	private Double total;
 
-	public Float getPosition() {
+	public Double getPosition() {
 		return position;
 	}
 
-	public void setPosition(Float position) {
+	public void setPosition(Double position) {
 		this.position = position;
 	}
 
-	public Float getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Float total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 

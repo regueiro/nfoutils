@@ -41,7 +41,7 @@ public class FileInfo {
 
 		@Override
 		public String toString() {
-			return "StreamDetails [video=" + videos+ ", audios=" + audios + ", subtitles=" + subtitles + "]";
+			return "StreamDetails [videos=" + videos + ", audios=" + audios + ", subtitles=" + subtitles + "]";
 		}
 
 	}
@@ -54,6 +54,8 @@ public class FileInfo {
 		private String codec;
 		@XmlElement(name = "language")
 		private String language;
+
+		// Extra tags
 		@XmlElement(name = "bitrate")
 		private String bitrate;
 		@XmlElement(name = "longlanguage")
@@ -73,15 +75,29 @@ public class FileInfo {
 		@XmlElement(name = "codec")
 		private String codec;
 		@XmlElement(name = "durationinseconds")
-		private Integer durationinseconds;
+		private Integer durationInSeconds;
 		@XmlElement(name = "height")
 		private Integer height;
 		@XmlElement(name = "width")
 		private Integer width;
+
+		// Extra tags
 		@XmlElement(name = "bitrate")
 		private String bitrate;
+		@XmlElement(name = "bitratemax")
+		private String bitrateMax;
+		@XmlElement(name = "bitratemode")
+		private String bitrateMode;
+		@XmlElement(name = "codecidinfo")
+		private String codecIdInfo;
+		@XmlElement(name = "container")
+		private String container;
+		@XmlElement(name = "duration")
+		private String duration;
 		@XmlElement(name = "encodedSettings")
 		private String encodedSettings;
+		@XmlElement(name = "format")
+		private String format;
 		@XmlElement(name = "language")
 		private String language;
 		@XmlElement(name = "longlanguage")
@@ -93,13 +109,23 @@ public class FileInfo {
 		@XmlElement(name = "stereomode")
 		private String stereomode;
 
-		
+		@Override
+		public String toString() {
+			return "Video [aspect=" + aspect + ", codec=" + codec + ", durationInSeconds=" + durationInSeconds
+					+ ", height=" + height + ", width=" + width + ", bitrate=" + bitrate + ", bitrateMax=" + bitrateMax
+					+ ", bitrateMode=" + bitrateMode + ", codecIdInfo=" + codecIdInfo + ", container=" + container
+					+ ", duration=" + duration + ", encodedSettings=" + encodedSettings + ", format=" + format
+					+ ", language=" + language + ", longlanguage=" + longlanguage + ", multiViewCount="
+					+ multiViewCount + ", scanType=" + scanType + ", stereomode=" + stereomode + "]";
+		}
 
 	}
 
 	static class Subtitle {
 		@XmlElement(name = "language")
 		private String language;
+
+		// Extra tags
 		@XmlElement(name = "longlanguage")
 		private String longLanguage;
 

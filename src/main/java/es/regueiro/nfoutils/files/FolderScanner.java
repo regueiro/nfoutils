@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 
+import javax.xml.bind.JAXBException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -103,9 +105,11 @@ public class FolderScanner {
 	 * 
 	 * @param nfoFile
 	 *            the nfo file
+	 * @throws IOException 
+	 * @throws JAXBException 
 	 */
-	private void parseMovieNfo(Path nfoFile) {
-		movies.add(Marshaller.unMarshall(nfoFile));
+	private void parseMovieNfo(Path nfoFile) throws JAXBException, IOException {
+		movies.add(Marshaller.unMarshall(nfoFile, Movie.class));
 	}
 
 	/**
@@ -144,7 +148,12 @@ public class FolderScanner {
 
 			if (attrs.isRegularFile() && file.getFileName().toString().endsWith(".nfo")) {
 				// logger.debug("Found nfo file: " + file.toString());
-				parseMovieNfo(file);
+				try {
+					parseMovieNfo(file);
+				} catch (JAXBException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			return FileVisitResult.CONTINUE;
 		}

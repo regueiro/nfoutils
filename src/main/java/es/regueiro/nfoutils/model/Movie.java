@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 // @XmlType (propOrder={"id","title","originaltititle", "sorttitle", "rating", "votes", "top250"})
-public class Movie {
+public class Movie extends NfoFile{
 
 	private static final Logger logger = LoggerFactory.getLogger(Movie.class);
 
@@ -45,7 +45,7 @@ public class Movie {
 	@XmlElement(name = "director", type = String.class)
 	private Collection<String> directors;
 	@XmlElement(name = "credits", type = String.class)
-	private Collection<String> writers;
+	private Collection<String> credits;
 	@XmlElement(name = "genre", type = String.class)
 	private Collection<String> genres;
 	@XmlElement(name = "country", type = String.class)
@@ -83,8 +83,6 @@ public class Movie {
 	private String poster;
 	@XmlElement(name = "banner")
 	private String banner;
-	@XmlElement(name = "fanart")
-	private String fanart;
 	@XmlElement(name = "set")
 	private String set;
 	@XmlElement(name = "watched")
@@ -132,7 +130,7 @@ public class Movie {
 
 	public Movie() {
 		this.directors = new ArrayList<>();
-		this.writers = new ArrayList<>();
+		this.credits = new ArrayList<>();
 		this.genres = new ArrayList<>();
 		this.countries = new ArrayList<>();
 		this.studios = new ArrayList<>();
@@ -169,12 +167,12 @@ public class Movie {
 	public String toString() {
 		return "Movie [folder=" + folder + "\n nfo=" + nfo + "\n imdbID=" + imdbID + "\n title=" + title
 				+ "\n originalTitle=" + originalTitle + "\n sortTitle=" + sortTitle + "\n outline=" + outline
-				+ "\n plot=" + plot + "\n tagline=" + tagline + "\n directors=" + directors + "\n writers=" + writers
+				+ "\n plot=" + plot + "\n tagline=" + tagline + "\n directors=" + directors + "\n writers=" + credits
 				+ "\n genres=" + genres + "\n countries=" + countries + "\n studios=" + studios + "\n actors=" + actors
 				+ "\n thumbs=" + thumbs + "\n fanarts=" + fanarts + "\n year=" + year + "\n date=" + date
 				+ "\n rating=" + rating + "\n votes=" + votes + "\n top250=" + top250 + "\n runtime=" + runtime
 				+ "\n playcount=" + playcount + "\n trailer=" + trailer + "\n certification=" + certification
-				+ "\n mpaa=" + mpaa + "\n poster=" + poster + "\n banner=" + banner + "\n fanart=" + fanart + "\n set="
+				+ "\n mpaa=" + mpaa + "\n poster=" + poster + "\n banner=" + banner  + "\n set="
 				+ set + "\n watched=" + watched + "\n tmdbId=" + tmdbId + "\n premiered=" + premiered + "\n tags="
 				+ tags + "\n lastplayed=" + lastplayed + "\n epbookmark=" + epbookmark + "\n filenameandpath="
 				+ filenameandpath + "\n file=" + file + "\n path=" + path + "\n basepath=" + basepath + "\n status="
