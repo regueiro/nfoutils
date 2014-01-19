@@ -18,12 +18,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import es.regueiro.nfoutils.files.MediaFolderManager;
-import es.regueiro.nfoutils.jaxb.Marshaller;
-import es.regueiro.nfoutils.model.EpisodeDetails;
-import es.regueiro.nfoutils.model.Movie;
-import es.regueiro.nfoutils.model.MultiEpisode;
-import es.regueiro.nfoutils.model.TvShow;
+import es.regueiro.nfoutils.internal.files.MediaFolderManager;
+import es.regueiro.nfoutils.internal.jaxb.Marshaller;
+import es.regueiro.nfoutils.internal.model.XbmcEpisodeDetails;
+import es.regueiro.nfoutils.internal.model.XbmcMovie;
+import es.regueiro.nfoutils.internal.model.XbmcMultiEpisode;
+import es.regueiro.nfoutils.internal.model.XbmcTvShow;
+import es.regueiro.nfoutils.media.Movie;
+import es.regueiro.nfoutils.media.NfoFileLoader;
 
 public class MarshallTest {
 
@@ -52,13 +54,12 @@ public class MarshallTest {
 	@Test
 	public void testMovieMarshalling() throws IOException, JAXBException {
 
-		Movie movie = Marshaller.unMarshall(
-				Paths.get("P:/Peliculas/1080p/2001 - A Space Odyssey (Commentary) (1968) [1080p]/movie.nfo"),
-				Movie.class);
+		Movie movie = NfoFileLoader.loadMovie(Paths
+				.get("P:/Peliculas/1080p/2001 - A Space Odyssey (Commentary) (1968) [1080p]/movie.nfo"));
 
 		movie.cleanEmptyTags();
 		System.out.println(movie.toString());
-		Marshaller.marshall(movie, Movie.class);
+		movie.save();
 
 	}
 
@@ -73,12 +74,12 @@ public class MarshallTest {
 		// TvShow multiEpisode =
 		// Marshaller.unMarshall(Paths.get("N:/test/How I Met Your Mother 8x11-E12 - The Final Page.nfo"),
 		// TvShow.class);
-//		Movie multiEpisode = Marshaller.unMarshall(Paths.get("N:/test/tvshow.nfo"), Movie.class);
+		// Movie multiEpisode = Marshaller.unMarshall(Paths.get("N:/test/tvshow.nfo"), Movie.class);
 
-//		multiEpisode.cleanEmptyTags();
-//		multiEpisode.setNfoFile(Paths.get("N:/test/out.nfo"));
-//		System.out.println(multiEpisode.toString());
-//		Marshaller.marshall(multiEpisode, Movie.class);
+		// multiEpisode.cleanEmptyTags();
+		// multiEpisode.setNfoFile(Paths.get("N:/test/out.nfo"));
+		// System.out.println(multiEpisode.toString());
+		// Marshaller.marshall(multiEpisode, Movie.class);
 
 	}
 
@@ -92,10 +93,10 @@ public class MarshallTest {
 		Path multiEpisode = Paths.get(Thread.currentThread().getContextClassLoader().getResource("multiepisode.nfo")
 				.toURI());
 
-		assertEquals(Movie.class, Marshaller.detectFileType(movie));
-		assertEquals(TvShow.class, Marshaller.detectFileType(tvshow));
-		assertEquals(EpisodeDetails.class, Marshaller.detectFileType(episode));
-		assertEquals(MultiEpisode.class, Marshaller.detectFileType(multiEpisode));
+		assertEquals(XbmcMovie.class, Marshaller.detectFileType(movie));
+		assertEquals(XbmcTvShow.class, Marshaller.detectFileType(tvshow));
+		assertEquals(XbmcEpisodeDetails.class, Marshaller.detectFileType(episode));
+		assertEquals(XbmcMultiEpisode.class, Marshaller.detectFileType(multiEpisode));
 
 	}
 }

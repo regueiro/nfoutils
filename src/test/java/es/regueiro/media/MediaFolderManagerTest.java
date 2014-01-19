@@ -15,8 +15,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import es.regueiro.nfoutils.exceptions.InvalidFolderException;
-import es.regueiro.nfoutils.files.MediaFolderManager;
+import es.regueiro.nfoutils.internal.exceptions.InvalidFolderException;
+import es.regueiro.nfoutils.internal.files.MediaFolderManager;
 
 public class MediaFolderManagerTest {
 	MediaFolderManager manager;

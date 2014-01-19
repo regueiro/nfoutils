@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import es.regueiro.nfoutils.files.FolderScanner;
-import es.regueiro.nfoutils.files.MediaFolderManager;
-import es.regueiro.nfoutils.model.Movie;
+import es.regueiro.nfoutils.internal.files.FolderScanner;
+import es.regueiro.nfoutils.internal.files.MediaFolderManager;
+import es.regueiro.nfoutils.internal.model.XbmcMovie;
 
 
 public class FolderScannerTest {
@@ -44,9 +44,9 @@ public class FolderScannerTest {
 		//TODO: Create a proper test with temp folders and mocked movie nfos.
 		FolderScanner scanner = new FolderScanner(manager.getMediaFoldersCollection());
 		
-		Collection<Movie> movies = scanner.scanForMovies();
+		Collection<XbmcMovie> movies = scanner.scanForMovies();
 
-		for (Movie movie:movies) {
+		for (XbmcMovie movie:movies) {
 			System.out.println(movie);
 		}
 	}
