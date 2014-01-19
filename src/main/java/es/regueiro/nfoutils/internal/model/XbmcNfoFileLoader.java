@@ -10,6 +10,8 @@ import es.regueiro.nfoutils.internal.model.XbmcEpisodeDetails;
 import es.regueiro.nfoutils.internal.model.XbmcMovie;
 import es.regueiro.nfoutils.internal.model.XbmcMultiEpisode;
 import es.regueiro.nfoutils.internal.model.XbmcTvShow;
+import es.regueiro.nfoutils.media.Album;
+import es.regueiro.nfoutils.media.Artist;
 import es.regueiro.nfoutils.media.Episode;
 import es.regueiro.nfoutils.media.Movie;
 import es.regueiro.nfoutils.media.MultiEpisode;
@@ -37,4 +39,13 @@ public class XbmcNfoFileLoader {
 	public static MultiEpisode loadMultiEpisode(Path file) throws JAXBException, IOException {
 		return Marshaller.unMarshall(file, XbmcMultiEpisode.class);
 	}
+
+	public static Artist loadArtist(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, XbmcArtist.class);
+	}
+
+	public static Album loadAlbum(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, XbmcAlbum.class);
+	}
+
 }

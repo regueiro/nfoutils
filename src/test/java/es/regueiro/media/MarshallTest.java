@@ -24,7 +24,9 @@ import es.regueiro.nfoutils.internal.model.XbmcEpisodeDetails;
 import es.regueiro.nfoutils.internal.model.XbmcMovie;
 import es.regueiro.nfoutils.internal.model.XbmcMultiEpisode;
 import es.regueiro.nfoutils.internal.model.XbmcTvShow;
+import es.regueiro.nfoutils.media.Episode;
 import es.regueiro.nfoutils.media.Movie;
+import es.regueiro.nfoutils.media.MultiEpisode;
 import es.regueiro.nfoutils.media.NfoFileLoader;
 import es.regueiro.nfoutils.media.TvShow;
 
@@ -99,5 +101,27 @@ public class MarshallTest {
 		assertEquals(XbmcEpisodeDetails.class, Marshaller.detectFileType(episode));
 		assertEquals(XbmcMultiEpisode.class, Marshaller.detectFileType(multiEpisode));
 
+	}
+	
+	@Test
+	public void testMarshalling() throws IOException, JAXBException, ParserConfigurationException, SAXException,
+			URISyntaxException {
+
+		Path movie = Paths.get(Thread.currentThread().getContextClassLoader().getResource("movie.nfo").toURI());
+		Path tvshow = Paths.get(Thread.currentThread().getContextClassLoader().getResource("tvshow.nfo").toURI());
+		Path episode = Paths.get(Thread.currentThread().getContextClassLoader().getResource("episode.nfo").toURI());
+		Path multiEpisode = Paths.get(Thread.currentThread().getContextClassLoader().getResource("multiepisode.nfo")
+				.toURI());
+
+		Episode loadEpisode = NfoFileLoader.loadEpisode(episode);
+		Movie loadMovie = NfoFileLoader.loadMovie(movie);
+		MultiEpisode loadMultiEpisode = NfoFileLoader.loadMultiEpisode(multiEpisode);
+//		NfoFileLoader.loadMusicVideo(file)
+		TvShow loadTvShow = NfoFileLoader.loadTvShow(tvshow);
+		
+		loadEpisode.save();
+		loadMovie.save();
+		loadMultiEpisode.save();
+		loadTvShow.save();
 	}
 }

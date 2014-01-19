@@ -28,4 +28,12 @@ public class NfoFileLoader {
 	public static MultiEpisode loadMultiEpisode(Path file) throws JAXBException, IOException {
 		return XbmcNfoFileLoader.loadMultiEpisode(file);
 	}
+	
+	public static Artist loadArtist(Path file) throws JAXBException, IOException {
+		return XbmcNfoFileLoader.loadArtist(file);
+	}
+	
+	public static Album loadAlbum(Path file) throws JAXBException, IOException {
+		return XbmcNfoFileLoader.loadAlbum(file);
+	}
 }

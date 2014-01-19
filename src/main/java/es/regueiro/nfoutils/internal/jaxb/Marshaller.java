@@ -50,24 +50,32 @@ public class Marshaller {
 	}
 
 	private static void marshallMultiEpisode(XbmcMultiEpisode multiEpisode) throws IOException, JAXBException {
-		try (BufferedWriter bufferedWriter = Files.newBufferedWriter(multiEpisode.getNfoFile(),
-				Charset.forName(ENCODING), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);) {
 
-			JAXBContext jaxbContext = JAXBContext.newInstance(XbmcEpisodeDetails.class);
-			javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-			jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FRAGMENT, true);
-			jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, ENCODING);
+		Path file = multiEpisode.getNfoFile();
 
-			bufferedWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>");
+		if (file != null) {
+			try (BufferedWriter bufferedWriter = Files.newBufferedWriter(multiEpisode.getNfoFile(),
+					Charset.forName(ENCODING), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);) {
 
-			for (XbmcEpisodeDetails episode : multiEpisode.getEpisodes()) {
-				jaxbMarshaller.marshal(episode, bufferedWriter);
-				bufferedWriter.append(LINE_SEPARATOR);
+				JAXBContext jaxbContext = JAXBContext.newInstance(XbmcEpisodeDetails.class);
+				javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
+				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FRAGMENT, true);
+				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, ENCODING);
+
+				bufferedWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>");
+
+				for (XbmcEpisodeDetails episode : multiEpisode.getEpisodes()) {
+					jaxbMarshaller.marshal(episode, bufferedWriter);
+					bufferedWriter.append(LINE_SEPARATOR);
+				}
+
+				bufferedWriter.toString();
+
 			}
 
-			bufferedWriter.toString();
-
+		} else {
+			throw new IllegalArgumentException("The MultiEpisode object does not contain an nfo file path");
 		}
 
 	}
