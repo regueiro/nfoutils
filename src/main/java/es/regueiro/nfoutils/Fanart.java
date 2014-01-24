@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,25 +8,25 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import es.regueiro.nfoutils.media.Cleanable;
+import es.regueiro.nfoutils.interfaces.Cleanable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcFanart implements Cleanable {
+public class Fanart implements Cleanable {
 
-	@XmlElement(name = "thumb", type = XbmcThumb.class)
-	private List<XbmcThumb> thumbs;
+	@XmlElement(name = "thumb", type = Thumb.class)
+	private List<Thumb> thumbs;
 	@XmlAttribute(name = "url")
 	private String url;
 
-	public XbmcFanart() {
+	public Fanart() {
 		thumbs = new ArrayList<>();
 	}
 
-	public List<XbmcThumb> getThumbs() {
+	public List<Thumb> getThumbs() {
 		return thumbs;
 	}
 
-	public void setThumbs(List<XbmcThumb> thumbs) {
+	public void setThumbs(List<Thumb> thumbs) {
 		this.thumbs = thumbs;
 	}
 
@@ -48,7 +48,7 @@ public class XbmcFanart implements Cleanable {
 		if (url != null && url.isEmpty()) {
 			url = null;
 		}
-		for (XbmcThumb thumb : thumbs) {
+		for (Thumb thumb : thumbs) {
 			thumb.cleanEmptyTags();
 		}
 	}

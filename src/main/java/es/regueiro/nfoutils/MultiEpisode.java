@@ -1,6 +1,7 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,39 +11,43 @@ import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.interfaces.Media;
 import es.regueiro.nfoutils.internal.jaxb.Marshaller;
-import es.regueiro.nfoutils.media.MultiEpisode;
 
-public class XbmcMultiEpisode extends XbmcNfoFile implements MultiEpisode {
+public class MultiEpisode extends NfoFile implements Media {
 
-	private static final Logger logger = LoggerFactory.getLogger(XbmcMultiEpisode.class);
+	private static final Logger logger = LoggerFactory.getLogger(MultiEpisode.class);
 
-	private List<XbmcEpisodeDetails> episodes;
+	private List<Episode> episodes;
 
-	public XbmcMultiEpisode() {
+	public MultiEpisode() {
 		this.episodes = new ArrayList<>();
 	}
 
-	public void addEpisode(XbmcEpisodeDetails episode) {
+	public void addEpisode(Episode episode) {
 		this.episodes.add(episode);
 	}
 
-	public void removeEpisode(XbmcEpisodeDetails episode) {
+	public void removeEpisode(Episode episode) {
 		this.episodes.remove(episode);
 	}
 
-	public boolean hasEpisode(XbmcEpisodeDetails episode) {
+	public boolean hasEpisode(Episode episode) {
 		return this.episodes.contains(episode);
 	}
 
-	public List<XbmcEpisodeDetails> getEpisodes() {
+	public List<Episode> getEpisodes() {
 		return Collections.unmodifiableList(episodes);
 	}
 
 	public void cleanEmptyTags() {
-		for (XbmcEpisodeDetails episode : episodes) {
+		for (Episode episode : episodes) {
 			episode.cleanEmptyTags();
 		}
+	}
+	
+	public static MultiEpisode fromFile(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, MultiEpisode.class);
 	}
 
 	@Override
@@ -57,7 +62,7 @@ public class XbmcMultiEpisode extends XbmcNfoFile implements MultiEpisode {
 			start = System.nanoTime();
 		}
 		cleanEmptyTags();
-		Marshaller.marshall(this, XbmcMultiEpisode.class);
+		Marshaller.marshall(this, MultiEpisode.class);
 		if (logger.isTraceEnabled()) {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);

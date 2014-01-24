@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,18 +7,18 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+import es.regueiro.nfoutils.interfaces.Cleanable;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.Cleanable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcActor implements Cleanable {
+public class Actor implements Cleanable {
 	private String name;
 	private String role;
 	private Integer order;
 	@XmlElement(name = "thumb")
-	private List<XbmcThumb> thumbs;
+	private List<Thumb> thumbs;
 
-	public XbmcActor() {
+	public Actor() {
 		this.thumbs = new ArrayList<>();
 	}
 
@@ -38,11 +38,11 @@ public class XbmcActor implements Cleanable {
 		this.role = role;
 	}
 
-	public List<XbmcThumb> getThumbs() {
+	public List<Thumb> getThumbs() {
 		return thumbs;
 	}
 
-	public void setThumbs(List<XbmcThumb> thumbs) {
+	public void setThumbs(List<Thumb> thumbs) {
 		this.thumbs = thumbs;
 	}
 
@@ -61,7 +61,7 @@ public class XbmcActor implements Cleanable {
 
 	@Override
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcActor.class);
+		TagCleaner.cleanEmptyTags(this, Actor.class);
 	}
 
 }

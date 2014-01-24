@@ -1,6 +1,6 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
-public class XbmcResume {
+public class Resume {
 	private Double position;
 	private Double total;
 

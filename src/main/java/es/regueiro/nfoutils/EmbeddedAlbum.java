@@ -1,12 +1,12 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import es.regueiro.nfoutils.media.Cleanable;
+import es.regueiro.nfoutils.interfaces.Cleanable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcEmbeddedAlbum implements Cleanable {
+public class EmbeddedAlbum implements Cleanable {
 
 	private String title;
 	private String year;

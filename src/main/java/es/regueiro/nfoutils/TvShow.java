@@ -1,6 +1,7 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +16,15 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.interfaces.Media;
 import es.regueiro.nfoutils.internal.jaxb.Marshaller;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.TvShow;
 
 @XmlRootElement(name = "tvshow")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcTvShow extends XbmcNfoFile implements TvShow {
+public class TvShow extends NfoFile implements Media {
 
-	private static final Logger logger = LoggerFactory.getLogger(XbmcTvShow.class);
+	private static final Logger logger = LoggerFactory.getLogger(TvShow.class);
 
 	@XmlElement(name = "id")
 	private String id;
@@ -44,19 +45,19 @@ public class XbmcTvShow extends XbmcNfoFile implements TvShow {
 	private List<String> genres;
 	@XmlElement(name = "studio", type = String.class)
 	private List<String> studios;
-	@XmlElement(name = "actor", type = XbmcActor.class)
-	private List<XbmcActor> actors;
-	@XmlElement(name = "thumb", type = XbmcThumb.class)
-	private List<XbmcThumb> thumbs;
-	@XmlElement(name = "fanart", type = XbmcFanart.class)
-	private List<XbmcFanart> fanarts;
+	@XmlElement(name = "actor", type = Actor.class)
+	private List<Actor> actors;
+	@XmlElement(name = "thumb", type = Thumb.class)
+	private List<Thumb> thumbs;
+	@XmlElement(name = "fanart", type = Fanart.class)
+	private List<Fanart> fanarts;
 	@XmlElement(name = "showlink", type = String.class)
 	private List<String> showlinks;
 	@XmlElement(name = "tag", type = String.class)
 	private List<String> tags;
 
-	@XmlElement(name = "episodeguide", type = XbmcEpisodeGuide.class)
-	private XbmcEpisodeGuide episodeGuide;
+	@XmlElement(name = "episodeguide", type = EpisodeGuide.class)
+	private EpisodeGuide episodeGuide;
 	@XmlElement(name = "uniqueid")
 	private String uniqueId;
 	@XmlElement(name = "displayseason")
@@ -106,11 +107,11 @@ public class XbmcTvShow extends XbmcNfoFile implements TvShow {
 	@XmlElement(name = "code")
 	private String code;
 	@XmlElement(name = "resume")
-	private XbmcResume resume;
+	private Resume resume;
 	@XmlElement(name = "dateadded")
 	private LocalDateTime dateadded;
 	@XmlElement(name = "art")
-	private XbmcArt art;
+	private Art art;
 
 	/*
 	 * ###Extra tags###
@@ -140,10 +141,14 @@ public class XbmcTvShow extends XbmcNfoFile implements TvShow {
 
 	// End extra tags
 
-	@XmlElement(name = "episodedetails", type = XbmcEpisodeDetails.class)
-	private List<XbmcEpisodeDetails> episodeDetails;
+	@XmlElement(name = "episodedetails", type = Episode.class)
+	private List<Episode> episodeDetails;
 
-	public XbmcTvShow() {
+	public static TvShow fromFile(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, TvShow.class);
+	}
+
+	public TvShow() {
 		this.actors = new ArrayList<>();
 		this.episodeDetails = new ArrayList<>();
 		this.fanarts = new ArrayList<>();
@@ -154,7 +159,7 @@ public class XbmcTvShow extends XbmcNfoFile implements TvShow {
 	}
 
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcTvShow.class);
+		TagCleaner.cleanEmptyTags(this, TvShow.class);
 	}
 
 	@Override
@@ -164,7 +169,7 @@ public class XbmcTvShow extends XbmcNfoFile implements TvShow {
 			start = System.nanoTime();
 		}
 		cleanEmptyTags();
-		Marshaller.marshall(this, XbmcTvShow.class);
+		Marshaller.marshall(this, TvShow.class);
 		if (logger.isTraceEnabled()) {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);

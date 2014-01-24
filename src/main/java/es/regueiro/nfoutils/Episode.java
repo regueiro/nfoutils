@@ -1,6 +1,7 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +16,15 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.interfaces.Media;
 import es.regueiro.nfoutils.internal.jaxb.Marshaller;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.Episode;
 
 @XmlRootElement(name = "episodedetails")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
+public class Episode extends NfoFile implements Media {
 
-	private static final Logger logger = LoggerFactory.getLogger(XbmcEpisodeDetails.class);
+	private static final Logger logger = LoggerFactory.getLogger(Episode.class);
 
 	@XmlElement(name = "id")
 	private String id;
@@ -43,10 +44,10 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	private List<String> directors;
 	@XmlElement(name = "credits", type = String.class)
 	private List<String> credits;
-	@XmlElement(name = "actor", type = XbmcActor.class)
-	private List<XbmcActor> actors;
-	@XmlElement(name = "thumb", type = XbmcThumb.class)
-	private List<XbmcThumb> thumbs;
+	@XmlElement(name = "actor", type = Actor.class)
+	private List<Actor> actors;
+	@XmlElement(name = "thumb", type = Thumb.class)
+	private List<Thumb> thumbs;
 	@XmlElement(name = "uniqueid")
 	private String uniqueId;
 	@XmlElement(name = "displayseason")
@@ -98,14 +99,14 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	@XmlElement(name = "code")
 	private String code;
 	@XmlElement(name = "resume")
-	private XbmcResume resume;
+	private Resume resume;
 	@XmlElement(name = "dateadded")
 	private LocalDateTime dateadded;
 	@XmlElement(name = "art")
-	private XbmcArt art;
+	private Art art;
 
-	@XmlElement(name = "fileinfo", type = XbmcFileInfo.class)
-	private List<XbmcFileInfo> fileinfos;
+	@XmlElement(name = "fileinfo", type = FileInfo.class)
+	private List<FileInfo> fileinfos;
 
 	/*
 	 * ###Extra tags###
@@ -139,14 +140,19 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 	// @XmlElement(name = "state")
 	// private String state;
 
-	public XbmcEpisodeDetails() {
+	
+	public static Episode fromFile(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, Episode.class);
+	}
+	
+	public Episode() {
 		this.studios = new ArrayList<>();
 		this.actors = new ArrayList<>();
 		this.thumbs = new ArrayList<>();
 	}
 
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcEpisodeDetails.class);
+		TagCleaner.cleanEmptyTags(this, Episode.class);
 	}
 
 	@Override
@@ -171,7 +177,7 @@ public class XbmcEpisodeDetails extends XbmcNfoFile implements Episode {
 			start = System.nanoTime();
 		}
 		cleanEmptyTags();
-		Marshaller.marshall(this, XbmcEpisodeDetails.class);
+		Marshaller.marshall(this, Episode.class);
 		if (logger.isTraceEnabled()) {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);

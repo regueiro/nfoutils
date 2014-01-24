@@ -1,10 +1,10 @@
-package es.regueiro.nfoutils.media;
+package es.regueiro.nfoutils.interfaces;
 
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
-interface Media extends NfoFile, Cleanable {
+public interface Media extends INfoFile, Cleanable {
 
 	public void save() throws IOException, JAXBException;
 

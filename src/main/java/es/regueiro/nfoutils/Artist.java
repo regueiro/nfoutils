@@ -1,6 +1,7 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +14,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.interfaces.Media;
 import es.regueiro.nfoutils.internal.jaxb.Marshaller;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.Artist;
 
 @XmlRootElement(name = "artist")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcArtist extends XbmcNfoFile implements Artist {
+public class Artist extends NfoFile implements Media {
 
-	private static final Logger logger = LoggerFactory.getLogger(XbmcArtist.class);
+	private static final Logger logger = LoggerFactory.getLogger(Artist.class);
 
 	@XmlElement(name = "name")
 	private String name;
@@ -38,12 +39,12 @@ public class XbmcArtist extends XbmcNfoFile implements Artist {
 	private List<String> yearsActive;
 	@XmlElement(name = "instruments", type = String.class)
 	private List<String> instruments;
-	@XmlElement(name = "album", type = XbmcEmbeddedAlbum.class)
-	private List<XbmcEmbeddedAlbum> albums;
-	@XmlElement(name = "thumb", type = XbmcThumb.class)
-	private List<XbmcThumb> thumbs;
-	@XmlElement(name = "fanart", type = XbmcFanart.class)
-	private List<XbmcFanart> fanarts;
+	@XmlElement(name = "album", type = EmbeddedAlbum.class)
+	private List<EmbeddedAlbum> albums;
+	@XmlElement(name = "thumb", type = Thumb.class)
+	private List<Thumb> thumbs;
+	@XmlElement(name = "fanart", type = Fanart.class)
+	private List<Fanart> fanarts;
 
 	@XmlElement(name = "born")
 	private String born;
@@ -59,7 +60,13 @@ public class XbmcArtist extends XbmcNfoFile implements Artist {
 	@XmlElement(name = "path")
 	private String path;
 
-	public XbmcArtist() {
+
+	public static Artist fromFile(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, Artist.class);
+	}
+
+	
+	public Artist() {
 		this.genres = new ArrayList<>();
 		this.styles = new ArrayList<>();
 		this.moods = new ArrayList<>();
@@ -71,7 +78,7 @@ public class XbmcArtist extends XbmcNfoFile implements Artist {
 	}
 
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcArtist.class);
+		TagCleaner.cleanEmptyTags(this, Artist.class);
 	}
 
 	@Override
@@ -81,7 +88,7 @@ public class XbmcArtist extends XbmcNfoFile implements Artist {
 			start = System.nanoTime();
 		}
 		cleanEmptyTags();
-		Marshaller.marshall(this, XbmcArtist.class);
+		Marshaller.marshall(this, Artist.class);
 		if (logger.isTraceEnabled()) {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);

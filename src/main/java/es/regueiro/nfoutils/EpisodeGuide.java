@@ -1,14 +1,14 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import es.regueiro.nfoutils.media.Cleanable;
+import es.regueiro.nfoutils.interfaces.Cleanable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcEpisodeGuide implements Cleanable {
+public class EpisodeGuide implements Cleanable {
 
 	@XmlElement
 	private String url;

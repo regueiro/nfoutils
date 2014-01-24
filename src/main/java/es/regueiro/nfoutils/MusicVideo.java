@@ -1,6 +1,7 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,15 +17,15 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.interfaces.Media;
 import es.regueiro.nfoutils.internal.jaxb.Marshaller;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.MusicVideo;
 
 @XmlRootElement(name = "musicvideo")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcMusicVideo extends XbmcNfoFile implements MusicVideo {
+public class MusicVideo extends NfoFile implements Media {
 
-	private static final Logger logger = LoggerFactory.getLogger(XbmcMusicVideo.class);
+	private static final Logger logger = LoggerFactory.getLogger(MusicVideo.class);
 
 	@XmlElement(name = "id")
 	private String id;
@@ -46,14 +47,14 @@ public class XbmcMusicVideo extends XbmcNfoFile implements MusicVideo {
 	private List<String> genres;
 	@XmlElement(name = "studio", type = String.class)
 	private List<String> studios;
-	@XmlElement(name = "actor", type = XbmcActor.class)
-	private List<XbmcActor> actors;
-	@XmlElement(name = "thumb", type = XbmcThumb.class)
-	private List<XbmcThumb> thumbs;
-	@XmlElement(name = "fanart", type = XbmcFanart.class)
-	private List<XbmcFanart> fanarts;
-	@XmlElement(name = "episodeguide", type = XbmcEpisodeGuide.class)
-	private XbmcEpisodeGuide episodeGuide;
+	@XmlElement(name = "actor", type = Actor.class)
+	private List<Actor> actors;
+	@XmlElement(name = "thumb", type = Thumb.class)
+	private List<Thumb> thumbs;
+	@XmlElement(name = "fanart", type = Fanart.class)
+	private List<Fanart> fanarts;
+	@XmlElement(name = "episodeguide", type = EpisodeGuide.class)
+	private EpisodeGuide episodeGuide;
 	@XmlElement(name = "uniqueid")
 	private String uniqueId;
 	@XmlElement(name = "year")
@@ -95,13 +96,17 @@ public class XbmcMusicVideo extends XbmcNfoFile implements MusicVideo {
 	@XmlElement(name = "code")
 	private String code;
 	@XmlElement(name = "resume")
-	private XbmcResume resume;
+	private Resume resume;
 	@XmlElement(name = "dateadded")
 	private LocalDateTime dateadded;
 	@XmlElement(name = "art")
-	private XbmcArt art;
+	private Art art;
 
-	public XbmcMusicVideo() {
+	public static MusicVideo fromFile(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, MusicVideo.class);
+	}
+	
+	public MusicVideo() {
 		this.artists = new ArrayList<>();
 		this.genres = new ArrayList<>();
 		this.studios = new ArrayList<>();
@@ -111,7 +116,7 @@ public class XbmcMusicVideo extends XbmcNfoFile implements MusicVideo {
 	}
 
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcMusicVideo.class);
+		TagCleaner.cleanEmptyTags(this, MusicVideo.class);
 	}
 
 	@Override
@@ -121,7 +126,7 @@ public class XbmcMusicVideo extends XbmcNfoFile implements MusicVideo {
 			start = System.nanoTime();
 		}
 		cleanEmptyTags();
-		Marshaller.marshall(this, XbmcMusicVideo.class);
+		Marshaller.marshall(this, MusicVideo.class);
 		if (logger.isTraceEnabled()) {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);

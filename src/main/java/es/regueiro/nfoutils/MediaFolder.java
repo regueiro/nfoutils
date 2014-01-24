@@ -1,13 +1,13 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.nio.file.Path;
 
-public class XbmcMediaFolder {
+public class MediaFolder {
 
 	private String name;
 	private Path path;
 	
-	public XbmcMediaFolder(String name, Path path) {
+	public MediaFolder(String name, Path path) {
 		this.name = name;
 		this.path = path;
 	}

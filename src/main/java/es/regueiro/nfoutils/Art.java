@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+import es.regueiro.nfoutils.interfaces.Cleanable;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.Cleanable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcArt implements Cleanable {
+public class Art implements Cleanable {
 
 	private String fanart;
 	private String poster;
@@ -19,7 +19,7 @@ public class XbmcArt implements Cleanable {
 	private String clearlogo;
 	private String landscape;
 	@XmlElement(name = "season")
-	private List<XbmcSeasonArt> seasonArts;
+	private List<SeasonArt> seasonArts;
 
 	public String getFanart() {
 		return fanart;
@@ -69,11 +69,11 @@ public class XbmcArt implements Cleanable {
 		this.landscape = landscape;
 	}
 
-	public List<XbmcSeasonArt> getSeasonArts() {
+	public List<SeasonArt> getSeasonArts() {
 		return seasonArts;
 	}
 
-	public void setSeasonArts(List<XbmcSeasonArt> seasonArts) {
+	public void setSeasonArts(List<SeasonArt> seasonArts) {
 		this.seasonArts = seasonArts;
 	}
 
@@ -85,7 +85,7 @@ public class XbmcArt implements Cleanable {
 
 	@Override
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcArt.class);
+		TagCleaner.cleanEmptyTags(this, Art.class);
 	}
 
 }

@@ -1,6 +1,7 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +16,15 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.regueiro.nfoutils.interfaces.Media;
 import es.regueiro.nfoutils.internal.jaxb.Marshaller;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.Movie;
 
 @XmlRootElement(name = "movie")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcMovie extends XbmcNfoFile implements Movie {
+public class Movie extends NfoFile implements Media {
 
-	private static final Logger logger = LoggerFactory.getLogger(XbmcMovie.class);
+	private static final Logger logger = LoggerFactory.getLogger(Movie.class);
 
 	@XmlElement(name = "id")
 	private String imdbID;
@@ -50,12 +51,12 @@ public class XbmcMovie extends XbmcNfoFile implements Movie {
 	private List<String> countries;
 	@XmlElement(name = "studio", type = String.class)
 	private List<String> studios;
-	@XmlElement(name = "actor", type = XbmcActor.class)
-	private List<XbmcActor> actors;
-	@XmlElement(name = "thumb", type = XbmcThumb.class)
-	private List<XbmcThumb> thumbs;
-	@XmlElement(name = "fanart", type = XbmcFanart.class)
-	private List<XbmcFanart> fanarts;
+	@XmlElement(name = "actor", type = Actor.class)
+	private List<Actor> actors;
+	@XmlElement(name = "thumb", type = Thumb.class)
+	private List<Thumb> thumbs;
+	@XmlElement(name = "fanart", type = Fanart.class)
+	private List<Fanart> fanarts;
 	@XmlElement(name = "tag", type = String.class)
 	private List<String> tags;
 
@@ -99,11 +100,11 @@ public class XbmcMovie extends XbmcNfoFile implements Movie {
 	@XmlElement(name = "aired")
 	private LocalDate aired;
 	@XmlElement(name = "resume")
-	private XbmcResume resume;
+	private Resume resume;
 	@XmlElement(name = "dateadded")
 	private LocalDateTime dateadded;
 	@XmlElement(name = "art")
-	private XbmcArt art;
+	private Art art;
 
 	/*
 	 * ###Extra tags###
@@ -125,10 +126,14 @@ public class XbmcMovie extends XbmcNfoFile implements Movie {
 	private Boolean watched;
 
 	// End extra tags
-	@XmlElement(name = "fileinfo", type = XbmcFileInfo.class)
-	private List<XbmcFileInfo> fileinfos;
+	@XmlElement(name = "fileinfo", type = FileInfo.class)
+	private List<FileInfo> fileinfos;
 
-	public XbmcMovie() {
+	public static Movie fromFile(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, Movie.class);
+	}
+
+	public Movie() {
 		this.directors = new ArrayList<>();
 		this.credits = new ArrayList<>();
 		this.genres = new ArrayList<>();
@@ -141,7 +146,7 @@ public class XbmcMovie extends XbmcNfoFile implements Movie {
 	}
 
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcMovie.class);
+		TagCleaner.cleanEmptyTags(this, Movie.class);
 	}
 
 	@Override
@@ -151,7 +156,7 @@ public class XbmcMovie extends XbmcNfoFile implements Movie {
 			start = System.nanoTime();
 		}
 		cleanEmptyTags();
-		Marshaller.marshall(this, XbmcMovie.class);
+		Marshaller.marshall(this, Movie.class);
 		if (logger.isTraceEnabled()) {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);

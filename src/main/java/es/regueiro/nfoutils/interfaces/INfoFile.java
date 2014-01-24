@@ -1,8 +1,8 @@
-package es.regueiro.nfoutils.media;
+package es.regueiro.nfoutils.interfaces;
 
 import java.nio.file.Path;
 
-public interface NfoFile {
+public interface INfoFile {
 
 	public Path getNfoFile();
 

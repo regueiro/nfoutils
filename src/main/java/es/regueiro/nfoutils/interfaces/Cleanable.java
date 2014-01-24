@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.media;
+package es.regueiro.nfoutils.interfaces;
 
 public interface Cleanable {
 	

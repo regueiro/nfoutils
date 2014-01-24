@@ -2,7 +2,6 @@ package es.regueiro.media;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -18,17 +17,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import es.regueiro.nfoutils.internal.files.MediaFolderManager;
+import es.regueiro.nfoutils.Episode;
+import es.regueiro.nfoutils.Movie;
+import es.regueiro.nfoutils.MultiEpisode;
+import es.regueiro.nfoutils.NfoFileLoader;
+import es.regueiro.nfoutils.TvShow;
 import es.regueiro.nfoutils.internal.jaxb.Marshaller;
-import es.regueiro.nfoutils.internal.model.XbmcEpisodeDetails;
-import es.regueiro.nfoutils.internal.model.XbmcMovie;
-import es.regueiro.nfoutils.internal.model.XbmcMultiEpisode;
-import es.regueiro.nfoutils.internal.model.XbmcTvShow;
-import es.regueiro.nfoutils.media.Episode;
-import es.regueiro.nfoutils.media.Movie;
-import es.regueiro.nfoutils.media.MultiEpisode;
-import es.regueiro.nfoutils.media.NfoFileLoader;
-import es.regueiro.nfoutils.media.TvShow;
 
 public class MarshallTest {
 
@@ -68,7 +62,7 @@ public class MarshallTest {
 	@Test
 	public void testTvShowMarshalling() throws IOException, JAXBException {
 
-		 TvShow show = Marshaller.unMarshall(Paths.get("T:/Series/Justified/tvshow.nfo"), XbmcTvShow.class);
+		 TvShow show = Marshaller.unMarshall(Paths.get("T:/Series/Justified/tvshow.nfo"), TvShow.class);
 		 show.save();
 		// TvShow show = Marshaller.unMarshall(Paths.get("N:/test/tvshow.nfo"), TvShow.class);
 		// MultiEpisode multiEpisode =
@@ -96,10 +90,10 @@ public class MarshallTest {
 		Path multiEpisode = Paths.get(Thread.currentThread().getContextClassLoader().getResource("multiepisode.nfo")
 				.toURI());
 
-		assertEquals(XbmcMovie.class, Marshaller.detectFileType(movie));
-		assertEquals(XbmcTvShow.class, Marshaller.detectFileType(tvshow));
-		assertEquals(XbmcEpisodeDetails.class, Marshaller.detectFileType(episode));
-		assertEquals(XbmcMultiEpisode.class, Marshaller.detectFileType(multiEpisode));
+		assertEquals(Movie.class, Marshaller.detectFileType(movie));
+		assertEquals(TvShow.class, Marshaller.detectFileType(tvshow));
+		assertEquals(Episode.class, Marshaller.detectFileType(episode));
+		assertEquals(MultiEpisode.class, Marshaller.detectFileType(multiEpisode));
 
 	}
 	

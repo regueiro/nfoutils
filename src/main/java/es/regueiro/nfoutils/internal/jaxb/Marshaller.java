@@ -22,11 +22,11 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import es.regueiro.nfoutils.internal.model.XbmcEpisodeDetails;
-import es.regueiro.nfoutils.internal.model.XbmcMovie;
-import es.regueiro.nfoutils.internal.model.XbmcMultiEpisode;
-import es.regueiro.nfoutils.internal.model.XbmcTvShow;
-import es.regueiro.nfoutils.media.NfoFile;
+import es.regueiro.nfoutils.Episode;
+import es.regueiro.nfoutils.Movie;
+import es.regueiro.nfoutils.MultiEpisode;
+import es.regueiro.nfoutils.TvShow;
+import es.regueiro.nfoutils.interfaces.INfoFile;
 
 public class Marshaller {
 	private static final Logger logger = LoggerFactory.getLogger(Marshaller.class);
@@ -34,9 +34,9 @@ public class Marshaller {
 	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	private static final String ENCODING = "UTF-8";
 
-	public static <T extends NfoFile> void marshall(T object, Class<T> type) throws IOException, JAXBException {
-		if (type.equals(XbmcMultiEpisode.class)) {
-			marshallMultiEpisode((XbmcMultiEpisode) object);
+	public static <T extends INfoFile> void marshall(T object, Class<T> type) throws IOException, JAXBException {
+		if (type.equals(MultiEpisode.class)) {
+			marshallMultiEpisode((MultiEpisode) object);
 		} else {
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(type);
@@ -49,7 +49,7 @@ public class Marshaller {
 		}
 	}
 
-	private static void marshallMultiEpisode(XbmcMultiEpisode multiEpisode) throws IOException, JAXBException {
+	private static void marshallMultiEpisode(MultiEpisode multiEpisode) throws IOException, JAXBException {
 
 		Path file = multiEpisode.getNfoFile();
 
@@ -57,7 +57,7 @@ public class Marshaller {
 			try (BufferedWriter bufferedWriter = Files.newBufferedWriter(multiEpisode.getNfoFile(),
 					Charset.forName(ENCODING), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);) {
 
-				JAXBContext jaxbContext = JAXBContext.newInstance(XbmcEpisodeDetails.class);
+				JAXBContext jaxbContext = JAXBContext.newInstance(Episode.class);
 				javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
 				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FRAGMENT, true);
@@ -65,7 +65,7 @@ public class Marshaller {
 
 				bufferedWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>");
 
-				for (XbmcEpisodeDetails episode : multiEpisode.getEpisodes()) {
+				for (Episode episode : multiEpisode.getEpisodes()) {
 					jaxbMarshaller.marshal(episode, bufferedWriter);
 					bufferedWriter.append(LINE_SEPARATOR);
 				}
@@ -80,8 +80,8 @@ public class Marshaller {
 
 	}
 
-	public static <T extends NfoFile> T unMarshall(Path file, Class<T> type) throws JAXBException, IOException {
-		if (type.equals(XbmcMultiEpisode.class)) {
+	public static <T extends INfoFile> T unMarshall(Path file, Class<T> type) throws JAXBException, IOException {
+		if (type.equals(MultiEpisode.class)) {
 			@SuppressWarnings("unchecked")
 			T multiEpisode = (T) unMarshallMultiEpisode(file);
 			return multiEpisode;
@@ -97,8 +97,8 @@ public class Marshaller {
 		}
 	}
 
-	private static XbmcMultiEpisode unMarshallMultiEpisode(Path file) throws JAXBException, IOException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(XbmcEpisodeDetails.class);
+	private static MultiEpisode unMarshallMultiEpisode(Path file) throws JAXBException, IOException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(Episode.class);
 
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
@@ -106,12 +106,12 @@ public class Marshaller {
 
 		String[] episodes = xml.split("</episodedetails>");
 
-		XbmcMultiEpisode multiEpisode = new XbmcMultiEpisode();
+		MultiEpisode multiEpisode = new MultiEpisode();
 
 		for (String s : episodes) {
 			if (s.contains("<episodedetails>")) {
 				StringReader reader = new StringReader(s + "</episodedetails>");
-				XbmcEpisodeDetails episodeDetails = (XbmcEpisodeDetails) jaxbUnmarshaller.unmarshal(reader);
+				Episode episodeDetails = (Episode) jaxbUnmarshaller.unmarshal(reader);
 				multiEpisode.addEpisode(episodeDetails);
 			}
 		}
@@ -133,7 +133,7 @@ public class Marshaller {
 		return out.toString();
 	}
 
-	public static Class<? extends NfoFile> detectFileType(Path file) throws ParserConfigurationException, SAXException,
+	public static Class<? extends INfoFile> detectFileType(Path file) throws ParserConfigurationException, SAXException,
 			IOException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
@@ -144,11 +144,11 @@ public class Marshaller {
 
 			switch (document.getFirstChild().getNodeName()) {
 			case "movie":
-				return XbmcMovie.class;
+				return Movie.class;
 			case "tvshow":
-				return XbmcTvShow.class;
+				return TvShow.class;
 			case "episodedetails":
-				return XbmcEpisodeDetails.class;
+				return Episode.class;
 			default:
 				return null;
 			}
@@ -156,7 +156,7 @@ public class Marshaller {
 		} catch (SAXParseException e) {
 			try {
 				unMarshallMultiEpisode(file);
-				return XbmcMultiEpisode.class;
+				return MultiEpisode.class;
 			} catch (JAXBException e1) {
 				throw e;
 			}

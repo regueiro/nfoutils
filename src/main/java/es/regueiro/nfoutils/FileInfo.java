@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,22 +7,22 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+import es.regueiro.nfoutils.interfaces.Cleanable;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
-import es.regueiro.nfoutils.media.Cleanable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcFileInfo implements Cleanable {
+public class FileInfo implements Cleanable {
 
 	@XmlElement(name = "streamdetails")
 	StreamDetails streamDetails;
 
-	public XbmcFileInfo() {
+	public FileInfo() {
 		this.streamDetails = new StreamDetails();
 	}
 
 	@Override
 	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, XbmcFileInfo.class);
+		TagCleaner.cleanEmptyTags(this, FileInfo.class);
 	}
 
 	@Override

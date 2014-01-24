@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.util.List;
 
@@ -6,23 +6,23 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import es.regueiro.nfoutils.media.Cleanable;
+import es.regueiro.nfoutils.interfaces.Cleanable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XbmcTrack implements Cleanable {
+public class Track implements Cleanable {
 
-	@XmlElement(name = "albumArtistCredits", type = XbmcArtistCredits.class)
-	private List<XbmcArtistCredits> albumArtistCredits;
+	@XmlElement(name = "albumArtistCredits", type = ArtistCredits.class)
+	private List<ArtistCredits> albumArtistCredits;
 	private String musicBrainzTrackID;
 	private String title;
 	private String duration;
 	private Integer position;
 
-	public List<XbmcArtistCredits> getAlbumArtistCredits() {
+	public List<ArtistCredits> getAlbumArtistCredits() {
 		return albumArtistCredits;
 	}
 
-	public void setAlbumArtistCredits(List<XbmcArtistCredits> albumArtistCredits) {
+	public void setAlbumArtistCredits(List<ArtistCredits> albumArtistCredits) {
 		this.albumArtistCredits = albumArtistCredits;
 	}
 
@@ -69,7 +69,7 @@ public class XbmcTrack implements Cleanable {
 		if (title != null && title.isEmpty()) {
 			title = null;
 		}
-		for (XbmcArtistCredits credit : albumArtistCredits) {
+		for (ArtistCredits credit : albumArtistCredits) {
 			credit.cleanEmptyTags();
 		}
 	}

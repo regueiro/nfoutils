@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.model;
+package es.regueiro.nfoutils;
 
 import java.nio.file.Path;
 
@@ -6,10 +6,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import es.regueiro.nfoutils.media.NfoFile;
-
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class XbmcNfoFile implements NfoFile{
+public abstract class NfoFile implements es.regueiro.nfoutils.interfaces.INfoFile {
 
 	@XmlTransient
 	private Path nfoFile;
