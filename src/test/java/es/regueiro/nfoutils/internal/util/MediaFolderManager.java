@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.files;
+package es.regueiro.nfoutils.internal.util;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,8 +19,7 @@ import es.regueiro.nfoutils.internal.exceptions.InvalidFolderException;
 public class MediaFolderManager {
 
 	/** The logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(MediaFolderManager.class);
+	private static final Logger logger = LoggerFactory.getLogger(MediaFolderManager.class);
 
 	/** The media folder map. */
 	private Map<String, Path> mediaFolders;
@@ -37,18 +36,19 @@ public class MediaFolderManager {
 	 * <p>
 	 * If the folder already exists in the map, the map is not modified.
 	 * </p>
-	 *
-	 * @param uri the uri of the folder to add
-	 * @throws InvalidFolderException if the folder doesn't exist
+	 * 
+	 * @param uri
+	 *            the uri of the folder to add
+	 * @throws InvalidFolderException
+	 *             if the folder doesn't exist
 	 */
 	public void addMediaFolder(String uri) throws InvalidFolderException {
 		Path newFolder = Paths.get(uri).toAbsolutePath();
 
 		String folderKey = newFolder.toString();
 
-		if (!mediaFolders.containsKey(folderKey)
-				&& !mediaFolders.containsValue(newFolder)) {
-			
+		if (!mediaFolders.containsKey(folderKey) && !mediaFolders.containsValue(newFolder)) {
+
 			if (Files.exists(newFolder)) {
 				mediaFolders.put(folderKey, newFolder);
 
@@ -65,8 +65,9 @@ public class MediaFolderManager {
 
 	/**
 	 * Removes a media folder from a string.
-	 *
-	 * @param uri the uri of the folder to remove
+	 * 
+	 * @param uri
+	 *            the uri of the folder to remove
 	 */
 	public void removeMediaFolder(String uri) {
 		Path folder = Paths.get(uri).toAbsolutePath();
@@ -76,21 +77,21 @@ public class MediaFolderManager {
 
 	/**
 	 * Removes a media folder from a path.
-	 *
-	 * @param path the path of the folder
+	 * 
+	 * @param path
+	 *            the path of the folder
 	 */
 	public void removeMediaFolder(Path path) {
 		if (mediaFolders.remove(path.toString()) != null) {
 			logger.info("Media folder removed: " + path.toString());
 		} else {
-			logger.debug("Tried to remove media folder not in collection: "
-					+ path.toString());
+			logger.debug("Tried to remove media folder not in collection: " + path.toString());
 		}
 	}
-	
+
 	/**
 	 * Removes all media folders from the map
-	 *
+	 * 
 	 */
 	public void clear() {
 		mediaFolders.clear();
@@ -98,27 +99,27 @@ public class MediaFolderManager {
 
 	/**
 	 * Gets the media folder map as an unmodifiable map.
-	 *
+	 * 
 	 * @return the media folder map
 	 */
 	public Map<String, Path> getMediaFolders() {
 		return Collections.unmodifiableMap(mediaFolders);
 	}
-	
+
 	/**
 	 * Gets the media folder map as an unmodifiable collection.
-	 *
+	 * 
 	 * @return the media folder collection
 	 */
 	public Collection<Path> getMediaFoldersCollection() {
 		return Collections.unmodifiableCollection(mediaFolders.values());
 	}
 
-
 	/**
 	 * Checks if the folder denoted by the string exists in the map.
-	 *
-	 * @param uri the uri of the folder
+	 * 
+	 * @param uri
+	 *            the uri of the folder
 	 * @return true, if the folder exists, false otherwise
 	 */
 	public boolean hasFolder(String uri) {
@@ -126,11 +127,12 @@ public class MediaFolderManager {
 
 		return hasFolder(folder);
 	}
-	
+
 	/**
 	 * Checks if the folder denoted by the path exists in the map.
-	 *
-	 * @param path the java path of the folder
+	 * 
+	 * @param path
+	 *            the java path of the folder
 	 * @return true, if the folder exists, false otherwise
 	 */
 	public boolean hasFolder(Path path) {

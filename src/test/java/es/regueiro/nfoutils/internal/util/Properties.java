@@ -1,4 +1,4 @@
-package es.regueiro.nfoutils.internal.properties;
+package es.regueiro.nfoutils.internal.util;
 
 import java.io.IOException;
 import java.util.ArrayList;

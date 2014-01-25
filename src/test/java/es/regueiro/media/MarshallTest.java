@@ -26,7 +26,7 @@ import es.regueiro.nfoutils.internal.jaxb.Marshaller;
 
 public class MarshallTest {
 
-//	MediaFolderManager manager;
+	// MediaFolderManager manager;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -39,7 +39,7 @@ public class MarshallTest {
 
 	@Before
 	public void setUp() throws Exception {
-//		manager = new MediaFolderManager();
+		// manager = new MediaFolderManager();
 
 		// manager.addMediaFolder("P:/Peliculas");
 	}
@@ -54,7 +54,7 @@ public class MarshallTest {
 		Movie movie = NfoFileLoader.loadMovie(Paths
 				.get("P:/Peliculas/1080p/2001 - A Space Odyssey (Commentary) (1968) [1080p]/movie.nfo"));
 
-//		System.out.println(movie.toString());
+		// System.out.println(movie.toString());
 		movie.save();
 
 	}
@@ -62,8 +62,8 @@ public class MarshallTest {
 	@Test
 	public void testTvShowMarshalling() throws IOException, JAXBException {
 
-		 TvShow show = Marshaller.unMarshall(Paths.get("T:/Series/Justified/tvshow.nfo"), TvShow.class);
-		 show.save();
+		TvShow show = Marshaller.unMarshall(Paths.get("T:/Series/Justified/tvshow.nfo"), TvShow.class);
+		show.save();
 		// TvShow show = Marshaller.unMarshall(Paths.get("N:/test/tvshow.nfo"), TvShow.class);
 		// MultiEpisode multiEpisode =
 		// Marshaller.unMarshall(Paths.get("N:/test/How I Met Your Mother 8x11-E12 - The Final Page.nfo"),
@@ -71,7 +71,7 @@ public class MarshallTest {
 		// TvShow multiEpisode =
 		// Marshaller.unMarshall(Paths.get("N:/test/How I Met Your Mother 8x11-E12 - The Final Page.nfo"),
 		// TvShow.class);
-//		 Movie multiEpisode = Marshaller.unMarshall(Paths.get("N:/test/tvshow.nfo"), XbmcMovie.class);
+		// Movie multiEpisode = Marshaller.unMarshall(Paths.get("N:/test/tvshow.nfo"), XbmcMovie.class);
 
 		// multiEpisode.cleanEmptyTags();
 		// multiEpisode.setNfoFile(Paths.get("N:/test/out.nfo"));
@@ -96,7 +96,7 @@ public class MarshallTest {
 		assertEquals(MultiEpisode.class, Marshaller.detectFileType(multiEpisode));
 
 	}
-	
+
 	@Test
 	public void testMarshalling() throws IOException, JAXBException, ParserConfigurationException, SAXException,
 			URISyntaxException {
@@ -110,9 +110,9 @@ public class MarshallTest {
 		Episode loadEpisode = NfoFileLoader.loadEpisode(episode);
 		Movie loadMovie = NfoFileLoader.loadMovie(movie);
 		MultiEpisode loadMultiEpisode = NfoFileLoader.loadMultiEpisode(multiEpisode);
-//		NfoFileLoader.loadMusicVideo(file)
+		// NfoFileLoader.loadMusicVideo(file)
 		TvShow loadTvShow = NfoFileLoader.loadTvShow(tvshow);
-		
+
 		loadEpisode.save();
 		loadMovie.save();
 		loadMultiEpisode.save();

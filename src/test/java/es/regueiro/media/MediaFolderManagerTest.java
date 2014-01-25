@@ -16,7 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import es.regueiro.nfoutils.internal.exceptions.InvalidFolderException;
-import es.regueiro.nfoutils.internal.files.MediaFolderManager;
+import es.regueiro.nfoutils.internal.util.MediaFolderManager;
 
 public class MediaFolderManagerTest {
 	MediaFolderManager manager;
@@ -40,8 +40,7 @@ public class MediaFolderManagerTest {
 
 	@Test
 	/*
-	 * Test that the manager instantiates correctly and that it
-	 * contains an empty list.
+	 * Test that the manager instantiates correctly and that it contains an empty list.
 	 */
 	public void testMediaFolderManager() {
 		System.out.println("\nTesting instantiate MediaFolderManager");
@@ -53,8 +52,8 @@ public class MediaFolderManagerTest {
 
 	@Test
 	/*
-	 * Test that we can add media folders correctly and that no duplicates
-	 * appear when we try to add the same folder more than once.
+	 * Test that we can add media folders correctly and that no duplicates appear when we try to add the same folder
+	 * more than once.
 	 */
 	public void testCanAddMediaFolder() {
 		try {
@@ -160,15 +159,13 @@ public class MediaFolderManagerTest {
 
 	@Test
 	/*
-	 * Test that we can get the media folders and make sure 
-	 * that the collection is unmodifiable
+	 * Test that we can get the media folders and make sure that the collection is unmodifiable
 	 */
 	public void testGetMediaFolders() {
 		System.out.println("\nTesting getMediaFolders");
 		try {
 			Map<String, Path> folderMap = manager.getMediaFolders();
-			Collection<Path> folderCollection = manager
-					.getMediaFoldersCollection();
+			Collection<Path> folderCollection = manager.getMediaFoldersCollection();
 			assertEquals(0, folderMap.size());
 			assertEquals(0, folderCollection.size());
 
@@ -199,7 +196,7 @@ public class MediaFolderManagerTest {
 				fail("UnsupportedOperationException expected");
 			} catch (UnsupportedOperationException expected) {
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail("IOException creating temp directory");
@@ -210,8 +207,7 @@ public class MediaFolderManagerTest {
 
 	@Test
 	/*
-	 * Test that hasFolder shows correctly that the folder is or isn't
-	 * contained in the map
+	 * Test that hasFolder shows correctly that the folder is or isn't contained in the map
 	 */
 	public void testHasFolder() {
 		System.out.println("\nTesting hasFolder");

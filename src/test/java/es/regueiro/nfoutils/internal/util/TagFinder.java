@@ -29,8 +29,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import es.regueiro.nfoutils.internal.properties.Properties;
-
 public class TagFinder {
 
 	static Set<String> values = new TreeSet<>();
@@ -72,15 +70,15 @@ public class TagFinder {
 				// if (tag.equals("imdbId")) {
 				// System.out.println("===imdbId: "+tags.item(i).getTextContent() + "\t"+ file.toString());
 				// }
-//				 if (tag.equals("bitratemax")) {
-//				 System.out.println("###bitratemax: "+tags.item(i).getTextContent() + "\t"+ file.toString());
-//				 }
-//				 if (tag.equals("bitratemode")) {
-//				 System.out.println("###bitratemode: "+tags.item(i).getTextContent() + "\t"+ file.toString());
-//				 }
-//				 if (tag.equals("codecidinfo")) {
-//				 System.out.println("###codecidinfo: "+tags.item(i).getTextContent() + "\t"+ file.toString());
-//				 }
+				// if (tag.equals("bitratemax")) {
+				// System.out.println("###bitratemax: "+tags.item(i).getTextContent() + "\t"+ file.toString());
+				// }
+				// if (tag.equals("bitratemode")) {
+				// System.out.println("###bitratemode: "+tags.item(i).getTextContent() + "\t"+ file.toString());
+				// }
+				// if (tag.equals("codecidinfo")) {
+				// System.out.println("###codecidinfo: "+tags.item(i).getTextContent() + "\t"+ file.toString());
+				// }
 				// if (tag.equals("thumb")) {
 				// if (tags.item(i).getParentNode().getNodeName().equals("tvshow"))
 				// System.out.println("+++thumb: " + tags.item(i).getTextContent() + "\t" + file.toString());
@@ -181,15 +179,16 @@ public class TagFinder {
 		// find(Paths.get("D:/xbmc_videodb_2014-01-12/videodb.xml"));
 
 		NfoFileVisitor visitor = new NfoFileVisitor();
-		 Files.walkFileTree(Paths.get("P:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
-		 visitor);
-		 Files.walkFileTree(Paths.get("T:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
-		 visitor);
-		 Files.walkFileTree(Paths.get("H:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
-		 visitor);
-//		Files.walkFileTree(Paths.get("T:/Series"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, visitor);
-//		Files.walkFileTree(Paths.get("T:/SeriesOrg"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
-//				visitor);
+		Files.walkFileTree(Paths.get("P:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+				visitor);
+		Files.walkFileTree(Paths.get("T:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+				visitor);
+		Files.walkFileTree(Paths.get("H:/Peliculas"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+				visitor);
+		// Files.walkFileTree(Paths.get("T:/Series"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+		// visitor);
+		// Files.walkFileTree(Paths.get("T:/SeriesOrg"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+		// visitor);
 
 		for (String s : TagFinder.values) {
 			System.out.println(s);

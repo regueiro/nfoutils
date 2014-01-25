@@ -6,7 +6,7 @@ public class MediaFolder {
 
 	private String name;
 	private Path path;
-	
+
 	public MediaFolder(String name, Path path) {
 		this.name = name;
 		this.path = path;
@@ -20,7 +20,8 @@ public class MediaFolder {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -34,11 +35,11 @@ public class MediaFolder {
 	}
 
 	/**
-	 * @param path the path to set
+	 * @param path
+	 *            the path to set
 	 */
 	public void setPath(Path path) {
 		this.path = path;
 	}
-
 
 }

@@ -1,3 +1,5 @@
+package es.regueiro.nfoutils.internal.util;
+
 //package es.regueiro.nfoutils.internal.files;
 //
 //import java.io.IOException;
@@ -186,4 +188,4 @@
 //		// }
 //
 //	}
-//}
+// }

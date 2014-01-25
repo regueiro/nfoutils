@@ -1,7 +1,7 @@
 package es.regueiro.nfoutils.internal.exceptions;
 
 /**
- * An exception for use when the provided folder location is invalid 
+ * An exception for use when the provided folder location is invalid
  */
 public class InvalidFolderException extends Exception {
 

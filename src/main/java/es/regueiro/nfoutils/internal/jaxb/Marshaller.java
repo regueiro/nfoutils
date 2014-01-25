@@ -133,8 +133,8 @@ public class Marshaller {
 		return out.toString();
 	}
 
-	public static Class<? extends INfoFile> detectFileType(Path file) throws ParserConfigurationException, SAXException,
-			IOException {
+	public static Class<? extends INfoFile> detectFileType(Path file) throws ParserConfigurationException,
+			SAXException, IOException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
 		builder = factory.newDocumentBuilder();
