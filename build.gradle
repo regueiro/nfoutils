@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
 sourceCompatibility=1.7
 targetCompatibility=1.7
@@ -33,6 +34,22 @@ dependencies() {
 	testCompile("junit:junit:$junitVersion",
 			"org.powermock:powermock-api-mockito:$powerMockVersion")
 
+}
+
+jar {
+	from "COPYING"
+	from "Changelog"
+	from "README.md"
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: "http://nexus.regueiro.me/content/repositories/releases") {
+				authentication(userName: mavenUser, password: mavenPassword)
+			}
+		}
+	}
 }
 
 eclipse {
