@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -112,6 +113,11 @@ public class MarshallTest {
 		MultiEpisode loadMultiEpisode = NfoFileLoader.loadMultiEpisode(multiEpisode);
 		// NfoFileLoader.loadMusicVideo(file)
 		TvShow loadTvShow = NfoFileLoader.loadTvShow(tvshow);
+
+		loadEpisode.setNfoFile(Files.createTempFile("episode", ".nfo"));
+		loadMovie.setNfoFile(Files.createTempFile("mvoie", ".nfo"));
+		loadMultiEpisode.setNfoFile(Files.createTempFile("multiepisode", ".nfo"));
+		loadTvShow.setNfoFile(Files.createTempFile("tvshow", ".nfo"));
 
 		loadEpisode.save();
 		loadMovie.save();

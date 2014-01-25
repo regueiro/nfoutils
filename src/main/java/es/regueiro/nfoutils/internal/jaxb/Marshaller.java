@@ -38,14 +38,22 @@ public class Marshaller {
 		if (type.equals(MultiEpisode.class)) {
 			marshallMultiEpisode((MultiEpisode) object);
 		} else {
+			Path file = object.getNfoFile();
+			if (file != null) {
+				try (BufferedWriter bufferedWriter = Files.newBufferedWriter(file, Charset.forName(ENCODING),
+						StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);) {
 
-			JAXBContext jaxbContext = JAXBContext.newInstance(type);
-			javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+					JAXBContext jaxbContext = JAXBContext.newInstance(type);
+					javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-			jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, ENCODING);
+					jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
+					jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, ENCODING);
 
-			jaxbMarshaller.marshal(object, System.out);
+					jaxbMarshaller.marshal(object, bufferedWriter);
+				}
+			} else {
+				throw new IllegalArgumentException("The media object does not contain an nfo file path");
+			}
 		}
 	}
 
@@ -59,6 +67,7 @@ public class Marshaller {
 
 				JAXBContext jaxbContext = JAXBContext.newInstance(Episode.class);
 				javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
 				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
 				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FRAGMENT, true);
 				jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, ENCODING);
@@ -69,11 +78,7 @@ public class Marshaller {
 					jaxbMarshaller.marshal(episode, bufferedWriter);
 					bufferedWriter.append(LINE_SEPARATOR);
 				}
-
-				bufferedWriter.toString();
-
 			}
-
 		} else {
 			throw new IllegalArgumentException("The MultiEpisode object does not contain an nfo file path");
 		}
