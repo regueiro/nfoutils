@@ -1,10 +1,13 @@
 package es.regueiro.nfoutils;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import es.regueiro.nfoutils.interfaces.Cleanable;
 import es.regueiro.nfoutils.internal.util.TagCleaner;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 class Video implements Cleanable {
 	@XmlElement(name = "aspect")
 	private Double aspect;

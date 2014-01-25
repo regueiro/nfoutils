@@ -1,5 +1,9 @@
 package es.regueiro.nfoutils;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Resume {
 	private Double position;
 	private Double total;
