@@ -6,13 +6,13 @@ Library for parsing and creating NFO files for media content.
 Usage
 -----
 
-**Read** existing nfo files by calling the method `fromFile(Path)` on a media object:
+**Read** existing nfo files by calling the method `fromFile(Path)` on a media object.
 
 ```java
 Movie movie = Movie.fromFile(Paths.get("/media/movies/movie.nfo"));
 ```
 
-Or use `NfoFileLoader`:
+Or use the `NfoFileLoader`.
 
 ```java
 Movie movie = NfoFIleLoader.loadMovie(Paths.get("/media/movies/movie.nfo"));
