@@ -78,14 +78,14 @@ public class Art implements Cleanable {
 	}
 
 	@Override
-	public String toString() {
-		return "Art [fanart=" + fanart + ", poster=" + poster + ", banner=" + banner + ", clearart=" + clearart
-				+ ", clearlogo=" + clearlogo + ", landscape=" + landscape + ", seasonArts=" + seasonArts + "]";
+	public void cleanEmptyTags() {
+		TagCleaner.cleanEmptyTags(this, Art.class);
 	}
 
 	@Override
-	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, Art.class);
+	public String toString() {
+		return "Art [fanart=" + fanart + ", poster=" + poster + ", banner=" + banner + ", clearart=" + clearart
+				+ ", clearlogo=" + clearlogo + ", landscape=" + landscape + ", seasonArts=" + seasonArts + "]";
 	}
 
 }

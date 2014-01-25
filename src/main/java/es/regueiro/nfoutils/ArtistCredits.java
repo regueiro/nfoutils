@@ -60,7 +60,7 @@ public class ArtistCredits implements Cleanable {
 
 	@Override
 	public String toString() {
-		return "XbmcAlbumArtistCredits [artist=" + artist + ", musicBrainzArtistID=" + musicBrainzArtistID
+		return "ArtistCredits [artist=" + artist + ", musicBrainzArtistID=" + musicBrainzArtistID
 				+ ", joinphrase=" + joinphrase + ", featuring=" + featuring + "]";
 	}
 

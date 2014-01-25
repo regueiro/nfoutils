@@ -32,11 +32,6 @@ public class EpisodeGuide implements Cleanable {
 	}
 
 	@Override
-	public String toString() {
-		return "EpisodeGuide:\nurl=" + url + "\ncache=" + cache;
-	}
-
-	@Override
 	public void cleanEmptyTags() {
 		if (url != null && url.isEmpty()) {
 			url = null;
@@ -44,6 +39,11 @@ public class EpisodeGuide implements Cleanable {
 		if (cache != null && cache.isEmpty()) {
 			cache = null;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "EpisodeGuide [url=" + url + ", cache=" + cache + "]";
 	}
 
 }

@@ -15,6 +15,14 @@ public class SeasonArt implements Cleanable {
 	private String poster;
 	private String banner;
 
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
+	}
+
 	public String getFanart() {
 		return fanart;
 	}

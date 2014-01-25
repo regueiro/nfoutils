@@ -60,12 +60,10 @@ public class Artist extends NfoFile implements Media {
 	@XmlElement(name = "path")
 	private String path;
 
-
 	public static Artist fromFile(Path file) throws JAXBException, IOException {
 		return Marshaller.unMarshall(file, Artist.class);
 	}
 
-	
 	public Artist() {
 		this.genres = new ArrayList<>();
 		this.styles = new ArrayList<>();
@@ -77,6 +75,135 @@ public class Artist extends NfoFile implements Media {
 		this.fanarts = new ArrayList<>();
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMusicBrainzArtistID() {
+		return musicBrainzArtistID;
+	}
+
+	public void setMusicBrainzArtistID(String musicBrainzArtistID) {
+		this.musicBrainzArtistID = musicBrainzArtistID;
+	}
+
+	public List<String> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<String> genres) {
+		this.genres = genres;
+	}
+
+	public List<String> getStyles() {
+		return styles;
+	}
+
+	public void setStyles(List<String> styles) {
+		this.styles = styles;
+	}
+
+	public List<String> getMoods() {
+		return moods;
+	}
+
+	public void setMoods(List<String> moods) {
+		this.moods = moods;
+	}
+
+	public List<String> getYearsActive() {
+		return yearsActive;
+	}
+
+	public void setYearsActive(List<String> yearsActive) {
+		this.yearsActive = yearsActive;
+	}
+
+	public List<String> getInstruments() {
+		return instruments;
+	}
+
+	public void setInstruments(List<String> instruments) {
+		this.instruments = instruments;
+	}
+
+	public List<EmbeddedAlbum> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<EmbeddedAlbum> albums) {
+		this.albums = albums;
+	}
+
+	public List<Thumb> getThumbs() {
+		return thumbs;
+	}
+
+	public void setThumbs(List<Thumb> thumbs) {
+		this.thumbs = thumbs;
+	}
+
+	public List<Fanart> getFanarts() {
+		return fanarts;
+	}
+
+	public void setFanarts(List<Fanart> fanarts) {
+		this.fanarts = fanarts;
+	}
+
+	public String getBorn() {
+		return born;
+	}
+
+	public void setBorn(String born) {
+		this.born = born;
+	}
+
+	public String getFormed() {
+		return formed;
+	}
+
+	public void setFormed(String formed) {
+		this.formed = formed;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public String getDied() {
+		return died;
+	}
+
+	public void setDied(String died) {
+		this.died = died;
+	}
+
+	public String getDisbanded() {
+		return disbanded;
+	}
+
+	public void setDisbanded(String disbanded) {
+		this.disbanded = disbanded;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	@Override
 	public void cleanEmptyTags() {
 		TagCleaner.cleanEmptyTags(this, Artist.class);
 	}
@@ -93,6 +220,15 @@ public class Artist extends NfoFile implements Media {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Artist:\nnfoFile=" + getNfoFile() + "\nname=" + name + "\nmusicBrainzArtistID=" + musicBrainzArtistID
+				+ "\ngenres=" + genres + "\nstyles=" + styles + "\nmoods=" + moods + "\nyearsActive=" + yearsActive
+				+ "\ninstruments=" + instruments + "\nalbums=" + albums + "\nthumbs=" + thumbs + "\nfanarts=" + fanarts
+				+ "\nborn=" + born + "\nformed=" + formed + "\nbiography=" + biography + "\ndied=" + died
+				+ "\ndisbanded=" + disbanded + "\npath=" + path;
 	}
 
 }

@@ -140,34 +140,345 @@ public class Episode extends NfoFile implements Media {
 	// @XmlElement(name = "state")
 	// private String state;
 
-	
 	public static Episode fromFile(Path file) throws JAXBException, IOException {
 		return Marshaller.unMarshall(file, Episode.class);
 	}
-	
+
 	public Episode() {
 		this.studios = new ArrayList<>();
+		this.directors = new ArrayList<>();
+		this.credits = new ArrayList<>();
 		this.actors = new ArrayList<>();
 		this.thumbs = new ArrayList<>();
+		this.fileinfos = new ArrayList<>();
 	}
 
-	public void cleanEmptyTags() {
-		TagCleaner.cleanEmptyTags(this, Episode.class);
+	public String getId() {
+		return id;
 	}
 
-	@Override
-	public String toString() {
-		return "EpisodeDetails:\nid=" + id + "\ntitle=" + title + "\nshowtitle=" + showtitle + "\noutline=" + outline
-				+ "\nplot=" + plot + "\ntagline=" + tagline + "\nstudios=" + studios + "\ndirectors=" + directors
-				+ "\ncredits=" + credits + "\nactors=" + actors + "\nthumbs=" + thumbs + "\nuniqueId=" + uniqueId
-				+ "\ndisplaySeason=" + displaySeason + "\ndisplayEpisode=" + displayEpisode + "\nseason=" + season
-				+ "\nepisode=" + episode + "\nyear=" + year + "\nrating=" + rating + "\nvotes=" + votes + "\ntop250="
-				+ top250 + "\nruntime=" + runtime + "\naired=" + aired + "\nplaycount=" + playcount + "\ntrailer="
-				+ trailer + "\nmpaa=" + mpaa + "\nset=" + set + "\npremiered=" + premiered + "\nlastplayed="
-				+ lastplayed + "\nepbookmark=" + epbookmark + "\nfilenameandpath=" + filenameandpath + "\nfile=" + file
-				+ "\npath=" + path + "\nbasepath=" + basepath + "\nstatus=" + status + "\ncode=" + code + "\nresume="
-				+ resume + "\ndateadded=" + dateadded + "\nart=" + art + "\nfileinfos=" + fileinfos + "\nshowId="
-				+ showId;
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getShowtitle() {
+		return showtitle;
+	}
+
+	public void setShowtitle(String showtitle) {
+		this.showtitle = showtitle;
+	}
+
+	public String getOutline() {
+		return outline;
+	}
+
+	public void setOutline(String outline) {
+		this.outline = outline;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+
+	public String getTagline() {
+		return tagline;
+	}
+
+	public void setTagline(String tagline) {
+		this.tagline = tagline;
+	}
+
+	public List<String> getStudios() {
+		return studios;
+	}
+
+	public void setStudios(List<String> studios) {
+		this.studios = studios;
+	}
+
+	public List<String> getDirectors() {
+		return directors;
+	}
+
+	public void setDirectors(List<String> directors) {
+		this.directors = directors;
+	}
+
+	public List<String> getCredits() {
+		return credits;
+	}
+
+	public void setCredits(List<String> credits) {
+		this.credits = credits;
+	}
+
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
+	public List<Thumb> getThumbs() {
+		return thumbs;
+	}
+
+	public void setThumbs(List<Thumb> thumbs) {
+		this.thumbs = thumbs;
+	}
+
+	public String getUniqueId() {
+		return uniqueId;
+	}
+
+	public void setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
+	}
+
+	public Integer getDisplaySeason() {
+		return displaySeason;
+	}
+
+	public void setDisplaySeason(Integer displaySeason) {
+		this.displaySeason = displaySeason;
+	}
+
+	public Integer getDisplayEpisode() {
+		return displayEpisode;
+	}
+
+	public void setDisplayEpisode(Integer displayEpisode) {
+		this.displayEpisode = displayEpisode;
+	}
+
+	public Integer getDisplayAfterSeason() {
+		return displayAfterSeason;
+	}
+
+	public void setDisplayAfterSeason(Integer displayAfterSeason) {
+		this.displayAfterSeason = displayAfterSeason;
+	}
+
+	public Integer getSeason() {
+		return season;
+	}
+
+	public void setSeason(Integer season) {
+		this.season = season;
+	}
+
+	public Integer getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Integer episode) {
+		this.episode = episode;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	public String getVotes() {
+		return votes;
+	}
+
+	public void setVotes(String votes) {
+		this.votes = votes;
+	}
+
+	public Integer getTop250() {
+		return top250;
+	}
+
+	public void setTop250(Integer top250) {
+		this.top250 = top250;
+	}
+
+	public Integer getRuntime() {
+		return runtime;
+	}
+
+	public void setRuntime(Integer runtime) {
+		this.runtime = runtime;
+	}
+
+	public LocalDate getAired() {
+		return aired;
+	}
+
+	public void setAired(LocalDate aired) {
+		this.aired = aired;
+	}
+
+	public Integer getPlaycount() {
+		return playcount;
+	}
+
+	public void setPlaycount(Integer playcount) {
+		this.playcount = playcount;
+	}
+
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
+	}
+
+	public String getMpaa() {
+		return mpaa;
+	}
+
+	public void setMpaa(String mpaa) {
+		this.mpaa = mpaa;
+	}
+
+	public String getSet() {
+		return set;
+	}
+
+	public void setSet(String set) {
+		this.set = set;
+	}
+
+	public LocalDate getPremiered() {
+		return premiered;
+	}
+
+	public void setPremiered(LocalDate premiered) {
+		this.premiered = premiered;
+	}
+
+	public LocalDate getLastplayed() {
+		return lastplayed;
+	}
+
+	public void setLastplayed(LocalDate lastplayed) {
+		this.lastplayed = lastplayed;
+	}
+
+	public Double getEpbookmark() {
+		return epbookmark;
+	}
+
+	public void setEpbookmark(Double epbookmark) {
+		this.epbookmark = epbookmark;
+	}
+
+	public String getFilenameandpath() {
+		return filenameandpath;
+	}
+
+	public void setFilenameandpath(String filenameandpath) {
+		this.filenameandpath = filenameandpath;
+	}
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getBasepath() {
+		return basepath;
+	}
+
+	public void setBasepath(String basepath) {
+		this.basepath = basepath;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Resume getResume() {
+		return resume;
+	}
+
+	public void setResume(Resume resume) {
+		this.resume = resume;
+	}
+
+	public LocalDateTime getDateadded() {
+		return dateadded;
+	}
+
+	public void setDateadded(LocalDateTime dateadded) {
+		this.dateadded = dateadded;
+	}
+
+	public Art getArt() {
+		return art;
+	}
+
+	public void setArt(Art art) {
+		this.art = art;
+	}
+
+	public List<FileInfo> getFileinfos() {
+		return fileinfos;
+	}
+
+	public void setFileinfos(List<FileInfo> fileinfos) {
+		this.fileinfos = fileinfos;
+	}
+
+	public String getShowId() {
+		return showId;
+	}
+
+	public void setShowId(String showId) {
+		this.showId = showId;
 	}
 
 	@Override
@@ -182,6 +493,26 @@ public class Episode extends NfoFile implements Media {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);
 		}
+	}
+
+	@Override
+	public void cleanEmptyTags() {
+		TagCleaner.cleanEmptyTags(this, Episode.class);
+	}
+
+	@Override
+	public String toString() {
+		return "Episode:\nnfoFile=" + getNfoFile() + "\nid=" + id + "\ntitle=" + title + "\nshowtitle=" + showtitle
+				+ "\noutline=" + outline + "\nplot=" + plot + "\ntagline=" + tagline + "\nstudios=" + studios
+				+ "\ndirectors=" + directors + "\ncredits=" + credits + "\nactors=" + actors + "\nthumbs=" + thumbs
+				+ "\nuniqueId=" + uniqueId + "\ndisplaySeason=" + displaySeason + "\ndisplayEpisode=" + displayEpisode
+				+ "\ndisplayAfterSeason=" + displayAfterSeason + "\nseason=" + season + "\nepisode=" + episode
+				+ "\nyear=" + year + "\nrating=" + rating + "\nvotes=" + votes + "\ntop250=" + top250 + "\nruntime="
+				+ runtime + "\naired=" + aired + "\nplaycount=" + playcount + "\ntrailer=" + trailer + "\nmpaa=" + mpaa
+				+ "\nset=" + set + "\npremiered=" + premiered + "\nlastplayed=" + lastplayed + "\nepbookmark="
+				+ epbookmark + "\nfilenameandpath=" + filenameandpath + "\nfile=" + file + "\npath=" + path
+				+ "\nbasepath=" + basepath + "\nstatus=" + status + "\ncode=" + code + "\nresume=" + resume
+				+ "\ndateadded=" + dateadded + "\nart=" + art + "\nfileinfos=" + fileinfos + "\nshowId=" + showId;
 	}
 
 }

@@ -20,6 +20,10 @@ public class MultiEpisode extends NfoFile implements Media {
 
 	private List<Episode> episodes;
 
+	public static MultiEpisode fromFile(Path file) throws JAXBException, IOException {
+		return Marshaller.unMarshall(file, MultiEpisode.class);
+	}
+
 	public MultiEpisode() {
 		this.episodes = new ArrayList<>();
 	}
@@ -40,21 +44,6 @@ public class MultiEpisode extends NfoFile implements Media {
 		return Collections.unmodifiableList(episodes);
 	}
 
-	public void cleanEmptyTags() {
-		for (Episode episode : episodes) {
-			episode.cleanEmptyTags();
-		}
-	}
-	
-	public static MultiEpisode fromFile(Path file) throws JAXBException, IOException {
-		return Marshaller.unMarshall(file, MultiEpisode.class);
-	}
-
-	@Override
-	public String toString() {
-		return "Multiepisode [episodes=" + episodes + "]";
-	}
-
 	@Override
 	public void save() throws IOException, JAXBException {
 		long start = 0;
@@ -67,6 +56,18 @@ public class MultiEpisode extends NfoFile implements Media {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);
 		}
+	}
+
+	@Override
+	public void cleanEmptyTags() {
+		for (Episode episode : episodes) {
+			episode.cleanEmptyTags();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Multiepisode [episodes=" + episodes + "]";
 	}
 
 }

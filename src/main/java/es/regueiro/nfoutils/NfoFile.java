@@ -6,8 +6,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
+import es.regueiro.nfoutils.interfaces.INfoFile;
+
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class NfoFile implements es.regueiro.nfoutils.interfaces.INfoFile {
+public abstract class NfoFile implements INfoFile {
 
 	@XmlTransient
 	private Path nfoFile;

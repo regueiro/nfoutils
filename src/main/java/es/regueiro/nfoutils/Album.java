@@ -64,7 +64,7 @@ public class Album extends NfoFile implements Media {
 	public static Album fromFile(Path file) throws JAXBException, IOException {
 		return Marshaller.unMarshall(file, Album.class);
 	}
-	
+
 	public Album() {
 		this.artists = new ArrayList<>();
 		this.genres = new ArrayList<>();
@@ -73,8 +73,147 @@ public class Album extends NfoFile implements Media {
 		this.themes = new ArrayList<>();
 		this.thumbs = new ArrayList<>();
 		this.albumArtistCredits = new ArrayList<>();
+		this.tracks = new ArrayList<>();
+
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getMusicBrainzAlbumID() {
+		return musicBrainzAlbumID;
+	}
+
+	public void setMusicBrainzAlbumID(String musicBrainzAlbumID) {
+		this.musicBrainzAlbumID = musicBrainzAlbumID;
+	}
+
+	public List<String> getArtists() {
+		return artists;
+	}
+
+	public void setArtists(List<String> artists) {
+		this.artists = artists;
+	}
+
+	public List<String> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<String> genres) {
+		this.genres = genres;
+	}
+
+	public List<String> getStyles() {
+		return styles;
+	}
+
+	public void setStyles(List<String> styles) {
+		this.styles = styles;
+	}
+
+	public List<String> getMoods() {
+		return moods;
+	}
+
+	public void setMoods(List<String> moods) {
+		this.moods = moods;
+	}
+
+	public List<String> getThemes() {
+		return themes;
+	}
+
+	public void setThemes(List<String> themes) {
+		this.themes = themes;
+	}
+
+	public List<Thumb> getThumbs() {
+		return thumbs;
+	}
+
+	public void setThumbs(List<Thumb> thumbs) {
+		this.thumbs = thumbs;
+	}
+
+	public List<ArtistCredits> getAlbumArtistCredits() {
+		return albumArtistCredits;
+	}
+
+	public void setAlbumArtistCredits(List<ArtistCredits> albumArtistCredits) {
+		this.albumArtistCredits = albumArtistCredits;
+	}
+
+	public List<ArtistCredits> getTracks() {
+		return tracks;
+	}
+
+	public void setTracks(List<ArtistCredits> tracks) {
+		this.tracks = tracks;
+	}
+
+	public Boolean getCompilation() {
+		return compilation;
+	}
+
+	public void setCompilation(Boolean compilation) {
+		this.compilation = compilation;
+	}
+
+	public String getReview() {
+		return review;
+	}
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+
+	public String getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	@Override
 	public void cleanEmptyTags() {
 		TagCleaner.cleanEmptyTags(this, Album.class);
 	}
@@ -91,6 +230,15 @@ public class Album extends NfoFile implements Media {
 			long end = System.nanoTime();
 			logger.trace("Marshalling took {} nanoseconds ({} seconds)", (end - start), (end - start) / 10e9);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Album:\nnfoFile=" + getNfoFile() + "\ntitle=" + title + "\nmusicBrainzAlbumID=" + musicBrainzAlbumID
+				+ "\nartists=" + artists + "\ngenres=" + genres + "\nstyles=" + styles + "\nmoods=" + moods
+				+ "\nthemes=" + themes + "\nthumbs=" + thumbs + "\nalbumArtistCredits=" + albumArtistCredits
+				+ "\ntracks=" + tracks + "\ncompilation=" + compilation + "\nreview=" + review + "\nreleaseDate="
+				+ releaseDate + "\nlabel=" + label + "\ntype=" + type + "\nyear=" + year + "\nrating=" + rating;
 	}
 
 }

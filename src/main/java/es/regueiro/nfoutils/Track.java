@@ -1,5 +1,6 @@
 package es.regueiro.nfoutils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,6 +18,10 @@ public class Track implements Cleanable {
 	private String title;
 	private String duration;
 	private Integer position;
+
+	public Track() {
+		this.albumArtistCredits = new ArrayList<>();
+	}
 
 	public List<ArtistCredits> getAlbumArtistCredits() {
 		return albumArtistCredits;
@@ -76,7 +81,7 @@ public class Track implements Cleanable {
 
 	@Override
 	public String toString() {
-		return "XbmcTrack [albumArtistCredits=" + albumArtistCredits + ", musicBrainzTrackID=" + musicBrainzTrackID
+		return "Track [albumArtistCredits=" + albumArtistCredits + ", musicBrainzTrackID=" + musicBrainzTrackID
 				+ ", position=" + position + ", duration=" + duration + ", title=" + title + "]";
 	}
 

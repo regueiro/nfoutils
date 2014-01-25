@@ -39,7 +39,7 @@ public class EmbeddedAlbum implements Cleanable {
 
 	@Override
 	public String toString() {
-		return "XbmcEmbeddedAlbum [title=" + title + ", year=" + year + "]";
+		return "EmbeddedAlbum [title=" + title + ", year=" + year + "]";
 	}
 
 }

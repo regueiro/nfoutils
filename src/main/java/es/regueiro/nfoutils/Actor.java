@@ -55,13 +55,12 @@ public class Actor implements Cleanable {
 	}
 
 	@Override
-	public String toString() {
-		return "Actor [name=" + name + ", role=" + role + ", order=" + order + ", thumbs=" + thumbs + "]";
-	}
-
-	@Override
 	public void cleanEmptyTags() {
 		TagCleaner.cleanEmptyTags(this, Actor.class);
 	}
 
+	@Override
+	public String toString() {
+		return "Actor [name=" + name + ", role=" + role + ", order=" + order + ", thumbs=" + thumbs + "]";
+	}
 }

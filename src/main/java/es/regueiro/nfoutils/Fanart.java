@@ -39,11 +39,6 @@ public class Fanart implements Cleanable {
 	}
 
 	@Override
-	public String toString() {
-		return "Fanart:\nurl=" + url + "\nthumbs=" + thumbs;
-	}
-
-	@Override
 	public void cleanEmptyTags() {
 		if (url != null && url.isEmpty()) {
 			url = null;
@@ -51,6 +46,11 @@ public class Fanart implements Cleanable {
 		for (Thumb thumb : thumbs) {
 			thumb.cleanEmptyTags();
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Fanart [thumbs=" + thumbs + ", url=" + url + "]";
 	}
 
 }
