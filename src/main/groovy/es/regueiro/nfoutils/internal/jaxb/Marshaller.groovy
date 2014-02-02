@@ -26,7 +26,7 @@ class Marshaller {
 	}
 
 	static marshall(object, Class type, Writer output) throws JAXBException, IOException {
-		if (object == MultiEpisode) {
+		if (type == MultiEpisode) {
 			def marshaller = createMarshaller Episode
 			marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FRAGMENT, true)
 			output.write('<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>')
