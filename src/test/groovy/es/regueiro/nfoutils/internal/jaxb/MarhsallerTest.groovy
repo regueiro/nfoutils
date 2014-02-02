@@ -58,7 +58,7 @@ class MarshallerTest extends GroovyTestCase {
 
 	}
 
-	void testMarshall() {
+	void testMarshallMovie() {
 //		def movieReader = Movie.fromFile("P:/Peliculas/1080p/2001 - A Space Odyssey (Commentary) (1968) [1080p]/movieReader.nfo")
 
 
@@ -71,6 +71,49 @@ class MarshallerTest extends GroovyTestCase {
 
 		println movie.toXml()
 	}
+
+	void testMarshallShow() {
+//		def movieReader = Movie.fromFile("P:/Peliculas/1080p/2001 - A Space Odyssey (Commentary) (1968) [1080p]/movieReader.nfo")
+
+
+		def show = TvShow.fromReader(tvShowReader)
+
+		assert show instanceof TvShow
+
+		println show
+
+
+		println show.toXml()
+	}
+
+	void testMarshallEpisode() {
+//		def movieReader = Movie.fromFile("P:/Peliculas/1080p/2001 - A Space Odyssey (Commentary) (1968) [1080p]/movieReader.nfo")
+
+
+		def episode = Episode.fromReader(episodeReader)
+
+		assert episode instanceof Episode
+
+		println episode
+
+
+		println episode.toXml()
+	}
+
+	void testMarshallMultiEpisode() {
+//		def movieReader = Movie.fromFile("P:/Peliculas/1080p/2001 - A Space Odyssey (Commentary) (1968) [1080p]/movieReader.nfo")
+
+
+		def multiEpisode = MultiEpisode.fromReader(multiEpisodeReader)
+
+		assert multiEpisode instanceof MultiEpisode
+
+		println multiEpisode
+
+
+		println multiEpisode.toXml()
+	}
+
 
 	void testUnMarshall() {
 
