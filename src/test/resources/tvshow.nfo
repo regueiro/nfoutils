@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tvshow>
+    <title>Supernatural</title>
+    <showtitle></showtitle>
+    <rating>8.9</rating>
+    <episode>12</episode>
+    <plot>Two brothers follow their father's footsteps as &quot;hunters&quot; fighting evil supernatural beings of many kinds including monsters, demons, and gods that roam the earth.</plot>
+    <outline>Two brothers follow their father's footsteps as &quot;hunters&quot; fighting evil supernatural beings of many kinds including monsters, demons, and gods that roam the earth.</outline>
+    <mpaa>TV-14</mpaa>
+    <premiered>2005-09-13</premiered>
+    <studio>The CW</studio>
+    <tvdbid>78901</tvdbid>
+    <id>78901</id>
+    <imdbId></imdbId>
+    <runtime>60</runtime>
+    <episodeguide>
+        <url>http://thetvdb.com/api/A0BB9A0F6762942B/series/78901/all/en.zip</url>
+    </episodeguide>
+    <genre>Drama / Fantasy</genre>
+    <actor>
+        <name>Jensen Ackles</name>
+        <role>Dean Winchester</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/80584.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Jared Padalecki</name>
+        <role>Sam Winchester</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/80583.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Misha Collins</name>
+        <role>Castiel</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/97921.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Mark Sheppard</name>
+        <role>Crowley </role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/174901.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Mark Pellegrino</name>
+        <role>Lucifer</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/169331.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Jim Beaver</name>
+        <role>Bobby Singer</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/144211.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Lauren Cohan</name>
+        <role>Bela Talbot</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/77978.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Katie Cassidy</name>
+        <role>Ruby (1)</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/68592.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Felicia Day</name>
+        <role>Charlie Bradbury</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/312842.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Genevieve Padalecki</name>
+        <role>Ruby (2)</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/285370.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Richard Speight Jr.</name>
+        <role>Gabriel</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/171711.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Rob Benedict</name>
+        <role>Chuck Shurley</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/144271.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Julie McNiven</name>
+        <role>Anna Milton</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/144251.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Alona Tal</name>
+        <role>Jo Harvelle</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/144241.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Samantha Ferris</name>
+        <role>Ellen Harvelle</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/144231.jpg</thumb>
+    </actor>
+    <actor>
+        <name>Jeffrey Dean Morgan</name>
+        <role>John Winchester</role>
+        <thumb>http://thetvdb.com/banners/_cache/actors/144221.jpg</thumb>
+    </actor>
+    <fanart/>
+</tvshow>
