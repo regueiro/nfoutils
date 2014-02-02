@@ -12,13 +12,17 @@ import javax.xml.bind.annotation.XmlAccessorType
 abstract class Media extends Cleanable {
 
 	def toFile(String file) throws IOException, JAXBException {
+		toWriter(new File(file).newWriter())
+	}
+
+	def toWriter(Writer writer) throws IOException, JAXBException {
 		def start = 0
 		if (log.isTraceEnabled()) {
 			start = System.nanoTime()
 		}
 
 		cleanEmptyTags()
-		Marshaller.marshall(this, this.class, new File(file).newWriter())
+		Marshaller.marshall(this, this.class, writer)
 
 		if (log.isTraceEnabled()) {
 			def end = System.nanoTime()
@@ -43,4 +47,6 @@ abstract class Media extends Cleanable {
 
 		output.toString()
 	}
+
+
 }
