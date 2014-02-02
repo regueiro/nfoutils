@@ -1,0 +1,68 @@
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+description = 'nfoutils'
+group = 'es.regueiro'
+version = '0.2-SNAPSHOT'
+
+repositories { mavenCentral() }
+
+dependencies() {
+
+	def jodatimeVersion = '2.3'
+	def groovyVersion = '2.2.1'
+	def slf4jVersion = '1.7.5'
+	def logbackVersion = '1.1.0'
+
+	// Groovy
+	compile("org.codehaus.groovy:groovy:$groovyVersion",
+			"org.codehaus.groovy:groovy-xml:$groovyVersion")
+
+	testCompile "org.codehaus.groovy:groovy-test:$groovyVersion"
+
+	// Joda Time
+	compile "joda-time:joda-time:$jodatimeVersion"
+
+	// Logging
+	compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+	testRuntime("ch.qos.logback:logback-classic:$logbackVersion",
+			"ch.qos.logback:logback-core:$logbackVersion")
+
+}
+
+jar {
+	from 'LICENSE'
+	from 'Changelog'
+	from 'README.md'
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			def folder
+
+			if (version.endsWith("-SNAPSHOT")) {
+				folder = 'snapshots'
+			} else {
+				folder = 'releases'
+			}
+
+			repository(url: "http://nexus.regueiro.me/content/repositories/$folder") {
+				authentication(userName: mavenUser, password: mavenPassword)
+			}
+		}
+	}
+}
+
+idea {
+	module {
+		downloadSources = true
+		downloadJavadoc = true
+	}
+}
