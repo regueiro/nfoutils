@@ -46,12 +46,14 @@ nfoutils **does not support** the following:
 Changelog
 ----------
 
-- 0.2-SNAPSHOT - 2014-02-02 
-	-  Ported to Groovy. 
-	-  Added methods to read from and write to Files, Strings and Readers/Writers
+- 0.2 - 2014-02-02
+    * Ported to groovy and removed the pure java version
+    * Added methods to read from and write to Files, Strings and Readers/Writers
+    * Corrected the cleaning of lists of strings
+    * Renamed properties to match the tag names
 
 - 0.1 - 2014-01-25 
-	-  Initial release
+	*  Initial release
 
 
 License
