@@ -35,13 +35,10 @@ class Episode extends Media {
 	@XmlElement(name = "thumb", type = Thumb.class)
 	List<Thumb> thumbs
 	@XmlElement(name = "uniqueid")
-	String uniqueId
-	@XmlElement(name = "displayseason")
-	Integer displaySeason
-	@XmlElement(name = "displayepisode")
-	Integer displayEpisode
-	@XmlElement(name = "displayafterseason")
-	Integer displayAfterSeason
+	String uniqueid
+	Integer displayseason
+	Integer displayepisode
+	Integer displayafterseason
 	Integer season
 	Integer episode
 	Integer year
@@ -79,8 +76,7 @@ class Episode extends Media {
 	 */
 
 	// Unknown Tags
-	@XmlElement(name = "showid")
-	String showId
+	String showid
 
 
 	static Episode fromFile(String file) throws JAXBException, IOException {

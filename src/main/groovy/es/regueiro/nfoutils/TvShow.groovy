@@ -20,10 +20,8 @@ class TvShow extends Media {
 
 	String id
 	String title
-	@XmlElement(name = "showtitle")
-	String showTitle
-	@XmlElement(name = "sorttitle")
-	String sortTitle
+	String showtitle
+	String sorttitle
 	String outline
 	String plot
 	String tagline
@@ -43,14 +41,10 @@ class TvShow extends Media {
 	@XmlElement(name = "tag")
 	List<String> tags
 
-	@XmlElement(name = "episodeguide", type = EpisodeGuide.class)
-	EpisodeGuide episodeGuide
-	@XmlElement(name = "uniqueid")
-	String uniqueId
-	@XmlElement(name = "displayseason")
-	Integer displaySeason
-	@XmlElement(name = "displayepisode")
-	Integer displayEpisode
+	EpisodeGuide episodeguide
+	String uniqueid
+	Integer displayseason
+	Integer displayepisode
 	Integer season
 	Integer episode
 	Integer year
@@ -85,25 +79,19 @@ class TvShow extends Media {
 	 */
 
 	// Media Elch Tags
-	@XmlElement(name = "tvdbid")
-	String tvdbID
-	@XmlElement(name = "imdbid")
-	String imdbID
+	String tvdbid
+	String imdbid
 
 	// Media Companion tags
-	@XmlElement(name = "episodeactorsource")
-	String episodeActorSource
-	@XmlElement(name = "tvshowactorsource")
-	String tvShowActorSource
-	@XmlElement(name = "sortorder")
-	String sortOrder
+	String episodeactorsource
+	String tvshowactorsource
+	String sortorder
 	String language
 	String state
 
 	// End extra tags
 
-	@XmlElement(name = "episodedetails", type = Episode.class)
-	List<Episode> episodeDetails
+	List<Episode> episodedetails
 
 	static TvShow fromFile(String file) throws JAXBException, IOException {
 		Marshaller.unMarshall(TvShow, new File(file).newReader()) as TvShow

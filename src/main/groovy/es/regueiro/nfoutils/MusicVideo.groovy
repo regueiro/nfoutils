@@ -38,10 +38,8 @@ class MusicVideo extends Media {
 	List<Fanart> fanarts
 	@XmlElement(name = "tag")
 	List<String> tags
-	@XmlElement(name = "episodeguide", type = EpisodeGuide.class)
-	EpisodeGuide episodeGuide
-	@XmlElement(name = "uniqueid")
-	String uniqueId
+	EpisodeGuide episodeguide
+	String uniqueid
 	Integer year
 	Double rating
 	String votes

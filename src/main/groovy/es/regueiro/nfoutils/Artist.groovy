@@ -23,9 +23,7 @@ class Artist extends Media {
 	List<String> styles
 	@XmlElement(name = "mood")
 	List<String> moods
-	@XmlElement(name = "yearsactive")
-	List<String> yearsActive
-	@XmlElement(name = "instruments")
+	List<String> yearsactive
 	List<String> instruments
 	@XmlElement(name = "album", type = EmbeddedAlbum.class)
 	List<EmbeddedAlbum> albums

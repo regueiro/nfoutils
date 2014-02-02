@@ -17,13 +17,10 @@ import javax.xml.bind.annotation.XmlRootElement
 @ToString(includeNames = true, includeFields = true)
 class Movie extends Media {
 
-	@XmlElement(name = "id")
-	String imdbID
+	String id
 	String title
-	@XmlElement(name = "originaltitle")
-	String originalTitle
-	@XmlElement(name = "sorttitle")
-	String sortTitle
+	String originaltitle
+	String sorttitle
 	String outline
 	String plot
 	String tagline
@@ -81,12 +78,9 @@ class Movie extends Media {
 	 */
 
 	String certification
-	@XmlElement(name = "releasedate")
-	LocalDate releaseDate
-	@XmlElement(name = "tmdbid")
-	String tmdbId
-	@XmlElement(name = "imdbid")
-	String imdbId
+	LocalDate releasedate
+	String tmdbid
+	String imdbid
 	Boolean watched
 
 	// End extra tags

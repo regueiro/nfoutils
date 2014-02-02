@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement
 @ToString(includeNames = true, includeFields = true)
 class FileInfo extends Cleanable {
 
-	@XmlElement(name = "streamdetails")
-	StreamDetails streamDetails
+	StreamDetails streamdetails
 
 }

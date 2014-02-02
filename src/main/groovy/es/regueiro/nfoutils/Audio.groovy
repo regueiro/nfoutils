@@ -15,6 +15,6 @@ class Audio {
 
 	// Extra tags
 	String bitrate
-	String longLanguage
+	String longlanguage
 
 }

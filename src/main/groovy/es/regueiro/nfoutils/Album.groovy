@@ -29,14 +29,13 @@ class Album extends Media {
 	List<String> themes
 	@XmlElement(name = "thumb")
 	List<Thumb> thumbs
-	@XmlElement(name = "albumArtistCredits")
 	List<ArtistCredits> albumArtistCredits
 	@XmlElement(name = "track")
 	List<ArtistCredits> tracks
 
 	Boolean compilation
 	String review
-	String releaseDate
+	String releasedate
 	String label
 	String type
 	Integer year

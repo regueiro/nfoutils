@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlElement
 class Subtitle extends Cleanable {
 
 	String language
-	@XmlElement(name = "longlanguage")
-	String longLanguage
+	String longlanguage
 
 }
