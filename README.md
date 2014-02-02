@@ -9,12 +9,12 @@ Usage
 **Read** existing nfo files by calling the method `fromFile(String)`,  `fromXml(String)` or  `fromReader(Reader)`  on a media object.
 
 
-```java
+```groovy
 def movie = Movie.fromFile '/media/movies/movie.nfo'
 def movie = Movie.fromXml '<movie>...</movie>'
 def show = TvShow.fromReader(bufferedReader)
-
 ```
+
 ```java
 Movie movie = Movie.fromFile("/media/movies/movie.nfo");
 Movie movie = Movie.fromXml("<movie>...</movie>");
@@ -23,7 +23,7 @@ TvShow show = TvShow.fromReader(bufferedReader);
 
 **Save** a nfo file by calling the method `toFile(String)` or `toXml(String)`.
 
-```java
+```groovy
 movie.toFile '/media/movies/movie.nfo'
 movie.toXml()
 ```
