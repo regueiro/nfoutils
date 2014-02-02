@@ -9,6 +9,7 @@ import es.regueiro.nfoutils.TvShow
 class MarshallerTest extends GroovyTestCase {
 	BufferedReader movieReader
 	BufferedReader tvShowReader
+	BufferedReader tvShowWithEpisodesReader
 	BufferedReader episodeReader
 	BufferedReader multiEpisodeReader
 	BufferedReader invalidReader
@@ -16,6 +17,7 @@ class MarshallerTest extends GroovyTestCase {
 	void setUp() {
 		movieReader = Thread.currentThread().getContextClassLoader().getResource("movie.nfo").newReader()
 		tvShowReader = Thread.currentThread().getContextClassLoader().getResource("tvshow.nfo").newReader()
+		tvShowWithEpisodesReader = Thread.currentThread().getContextClassLoader().getResource("tvshowWithEpisodes.nfo").newReader()
 		episodeReader = Thread.currentThread().getContextClassLoader().getResource("episode.nfo").newReader()
 		multiEpisodeReader = Thread.currentThread().getContextClassLoader().getResource("multiepisode.nfo").newReader()
 		invalidReader = Thread.currentThread().getContextClassLoader().getResource("invalid.nfo").newReader()
@@ -82,6 +84,15 @@ class MarshallerTest extends GroovyTestCase {
 
 		println show
 
+
+		println show.toXml()
+
+
+		show = TvShow.fromReader(tvShowWithEpisodesReader)
+
+		assert show instanceof TvShow
+
+		println show
 
 		println show.toXml()
 	}
