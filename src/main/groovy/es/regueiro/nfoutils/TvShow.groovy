@@ -27,19 +27,19 @@ class TvShow extends Media {
 	String tagline
 
 	@XmlElement(name = "genre")
-	List<String> genres
+	List<String> genres = new ArrayList<>()
 	@XmlElement(name = "studio")
-	List<String> studios
+	List<String> studios = new ArrayList<>()
 	@XmlElement(name = "actor", type = Actor.class)
-	List<Actor> actors
+	List<Actor> actors = new ArrayList<>()
 	@XmlElement(name = "thumb", type = Thumb.class)
-	List<Thumb> thumbs
+	List<Thumb> thumbs = new ArrayList<>()
 	@XmlElement(name = "fanart", type = Fanart.class)
-	List<Fanart> fanarts
+	List<Fanart> fanarts = new ArrayList<>()
 	@XmlElement(name = "showlink")
-	List<String> showlinks
+	List<String> showlinks = new ArrayList<>()
 	@XmlElement(name = "tag")
-	List<String> tags
+	List<String> tags = new ArrayList<>()
 
 	EpisodeGuide episodeguide
 	String uniqueid
@@ -91,7 +91,7 @@ class TvShow extends Media {
 
 	// End extra tags
 
-	List<Episode> episodedetails
+	List<Episode> episodedetails = new ArrayList<>()
 
 	static TvShow fromFile(String file) throws JAXBException, IOException {
 		Marshaller.unMarshall(TvShow, new File(file).newReader()) as TvShow

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlAccessorType
 @ToString(includeNames = true, includeFields = true)
 class MultiEpisode extends Media {
 
-	List<Episode> episodes
+	List<Episode> episodes = new ArrayList<>()
 
 	static MultiEpisode fromFile(String file) throws JAXBException, IOException {
 		Marshaller.unMarshall(MultiEpisode, new File(file).newReader()) as MultiEpisode

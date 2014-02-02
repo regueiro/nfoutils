@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement
 class Fanart extends Cleanable {
 
 	@XmlElement(name = "thumb", type = Thumb.class)
-	List<Thumb> thumbs
+	List<Thumb> thumbs = new ArrayList<>()
 	String url
 
 }

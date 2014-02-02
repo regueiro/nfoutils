@@ -26,23 +26,23 @@ class Movie extends Media {
 	String tagline
 
 	@XmlElement(name = "director")
-	List<String> directors
+	List<String> directors = new ArrayList<>()
 	@XmlElement(name = "credits")
-	List<String> credits
+	List<String> credits = new ArrayList<>()
 	@XmlElement(name = "genre")
-	List<String> genres
+	List<String> genres = new ArrayList<>()
 	@XmlElement(name = "country")
-	List<String> countries
+	List<String> countries = new ArrayList<>()
 	@XmlElement(name = "studio")
-	List<String> studios
+	List<String> studios = new ArrayList<>()
 	@XmlElement(name = "actor", type = Actor.class)
-	List<Actor> actors
+	List<Actor> actors = new ArrayList<>()
 	@XmlElement(name = "thumb", type = Thumb.class)
-	List<Thumb> thumbs
+	List<Thumb> thumbs = new ArrayList<>()
 	@XmlElement(name = "fanart", type = Fanart.class)
-	List<Fanart> fanarts
+	List<Fanart> fanarts = new ArrayList<>()
 	@XmlElement(name = "tag")
-	List<String> tags
+	List<String> tags = new ArrayList<>()
 
 	Integer year
 	Double rating
@@ -85,7 +85,7 @@ class Movie extends Media {
 
 	// End extra tags
 	@XmlElement(name = "fileinfo", type = FileInfo.class)
-	List<FileInfo> fileinfos
+	List<FileInfo> fileinfos = new ArrayList<>()
 
 
 	static Movie fromFile(String file) throws JAXBException, IOException {

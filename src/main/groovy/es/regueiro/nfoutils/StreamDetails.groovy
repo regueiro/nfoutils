@@ -12,10 +12,10 @@ import javax.xml.bind.annotation.XmlElement
 class StreamDetails extends Cleanable {
 
 	@XmlElement(name = "video")
-	List<Video> videos
+	List<Video> videos = new ArrayList<>()
 	@XmlElement(name = "audio")
-	List<Audio> audios
+	List<Audio> audios = new ArrayList<>()
 	@XmlElement(name = "subtitle")
-	List<Subtitle> subtitles
+	List<Subtitle> subtitles = new ArrayList<>()
 
 }

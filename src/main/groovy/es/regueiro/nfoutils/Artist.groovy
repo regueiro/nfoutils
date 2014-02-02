@@ -18,19 +18,19 @@ class Artist extends Media {
 	String musicBrainzArtistID
 
 	@XmlElement(name = "genre")
-	List<String> genres
+	List<String> genres = new ArrayList<>()
 	@XmlElement(name = "style")
-	List<String> styles
+	List<String> styles = new ArrayList<>()
 	@XmlElement(name = "mood")
-	List<String> moods
-	List<String> yearsactive
-	List<String> instruments
+	List<String> moods = new ArrayList<>()
+	List<String> yearsactive = new ArrayList<>()
+	List<String> instruments = new ArrayList<>()
 	@XmlElement(name = "album", type = EmbeddedAlbum.class)
-	List<EmbeddedAlbum> albums
+	List<EmbeddedAlbum> albums = new ArrayList<>()
 	@XmlElement(name = "thumb", type = Thumb.class)
-	List<Thumb> thumbs
+	List<Thumb> thumbs = new ArrayList<>()
 	@XmlElement(name = "fanart", type = Fanart.class)
-	List<Fanart> fanarts
+	List<Fanart> fanarts = new ArrayList<>()
 
 	String born
 	String formed

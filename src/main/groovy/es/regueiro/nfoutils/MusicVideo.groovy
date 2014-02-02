@@ -25,19 +25,19 @@ class MusicVideo extends Media {
 	String plot
 	String tagline
 	@XmlElement(name = "artist")
-	List<String> artists
+	List<String> artists = new ArrayList<>()
 	@XmlElement(name = "genre")
-	List<String> genres
+	List<String> genres = new ArrayList<>()
 	@XmlElement(name = "studio")
-	List<String> studios
+	List<String> studios = new ArrayList<>()
 	@XmlElement(name = "actor", type = Actor.class)
-	List<Actor> actors
+	List<Actor> actors = new ArrayList<>()
 	@XmlElement(name = "thumb", type = Thumb.class)
-	List<Thumb> thumbs
+	List<Thumb> thumbs = new ArrayList<>()
 	@XmlElement(name = "fanart", type = Fanart.class)
-	List<Fanart> fanarts
+	List<Fanart> fanarts = new ArrayList<>()
 	@XmlElement(name = "tag")
-	List<String> tags
+	List<String> tags = new ArrayList<>()
 	EpisodeGuide episodeguide
 	String uniqueid
 	Integer year

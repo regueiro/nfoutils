@@ -18,6 +18,6 @@ class Art extends Cleanable {
 	String clearlogo
 	String landscape
 	@XmlElement(name = "season")
-	SeasonArt[] seasonArts
+	List<SeasonArt> seasonArts = new ArrayList<>()
 
 }

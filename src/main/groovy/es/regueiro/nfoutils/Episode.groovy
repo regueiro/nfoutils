@@ -25,15 +25,15 @@ class Episode extends Media {
 	String plot
 	String tagline
 	@XmlElement(name = "studio")
-	List<String> studios
+	List<String> studios = new ArrayList<>()
 	@XmlElement(name = "director")
-	List<String> directors
+	List<String> directors = new ArrayList<>()
 	@XmlElement(name = "credits")
-	List<String> credits
+	List<String> credits = new ArrayList<>()
 	@XmlElement(name = "actor", type = Actor.class)
-	List<Actor> actors
+	List<Actor> actors = new ArrayList<>()
 	@XmlElement(name = "thumb", type = Thumb.class)
-	List<Thumb> thumbs
+	List<Thumb> thumbs = new ArrayList<>()
 	@XmlElement(name = "uniqueid")
 	String uniqueid
 	Integer displayseason
@@ -65,7 +65,7 @@ class Episode extends Media {
 	Art art
 
 	@XmlElement(name = "fileinfo", type = FileInfo.class)
-	List<FileInfo> fileinfos
+	List<FileInfo> fileinfos = new ArrayList<>()
 
 	/*
 	 * ###Extra tags###

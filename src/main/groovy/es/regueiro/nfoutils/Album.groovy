@@ -18,20 +18,20 @@ class Album extends Media {
 	String title
 	String musicBrainzAlbumID
 	@XmlElement(name = "artist")
-	List<String> artists
+	List<String> artists = new ArrayList<>()
 	@XmlElement(name = "genre")
-	List<String> genres
+	List<String> genres = new ArrayList<>()
 	@XmlElement(name = "style")
-	List<String> styles
+	List<String> styles = new ArrayList<>()
 	@XmlElement(name = "mood")
-	List<String> moods
+	List<String> moods = new ArrayList<>()
 	@XmlElement(name = "theme")
-	List<String> themes
+	List<String> themes = new ArrayList<>()
 	@XmlElement(name = "thumb")
-	List<Thumb> thumbs
-	List<ArtistCredits> albumArtistCredits
+	List<Thumb> thumbs = new ArrayList<>()
+	List<ArtistCredits> albumArtistCredits = new ArrayList<>()
 	@XmlElement(name = "track")
-	List<ArtistCredits> tracks
+	List<ArtistCredits> tracks = new ArrayList<>()
 
 	Boolean compilation
 	String review
