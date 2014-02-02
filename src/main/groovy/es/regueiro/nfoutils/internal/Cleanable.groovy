@@ -25,14 +25,18 @@ abstract class Cleanable {
 			}
 		} else if (Collection.class.isAssignableFrom(f.type)) {
 			f.setAccessible true
-			Collection field = f.get(object) as Collection
-			field.each {
-				if (it instanceof String) {
-					if (it?.trim() == "") {
-						field.remove it
+			Collection collection = f.get(object) as Collection
+
+			def it = collection.iterator()
+			while (it.hasNext()) {
+				def field = it.next()
+
+				if (field instanceof  String) {
+					if (field.trim() == "") {
+						it.remove()
 					}
-				} else if (it instanceof Cleanable) {
-					it.cleanEmptyTags()
+				} else if (field instanceof Cleanable) {
+					field.cleanEmptyTags()
 				}
 			}
 		} else if (f.type.isAssignableFrom(Cleanable)) {
