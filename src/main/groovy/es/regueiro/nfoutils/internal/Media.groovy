@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlAccessorType
 @XmlAccessorType(XmlAccessType.FIELD)
 abstract class Media extends Cleanable {
 
-	def toFile(String file) throws IOException, JAXBException {
+	void toFile(String file) throws IOException, JAXBException {
 		toWriter(new File(file).newWriter())
 	}
 
-	def toWriter(Writer writer) throws IOException, JAXBException {
+	void toWriter(Writer writer) throws IOException, JAXBException {
 		def start = 0
 		if (log.isTraceEnabled()) {
 			start = System.nanoTime()
@@ -30,7 +30,7 @@ abstract class Media extends Cleanable {
 		}
 	}
 
-	def String toXml() throws IOException, JAXBException {
+	String toXml() throws IOException, JAXBException {
 		def start = 0
 		if (log.isTraceEnabled()) {
 			start = System.nanoTime()

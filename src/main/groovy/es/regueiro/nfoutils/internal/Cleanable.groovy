@@ -9,13 +9,13 @@ import java.lang.reflect.Field
 @XmlTransient
 abstract class Cleanable {
 
-	protected cleanEmptyTags() {
+	protected void cleanEmptyTags() {
 		this.class.declaredFields.each {
 			cleanField(it, this)
 		}
 	}
 
-	protected static cleanField(Field f, object) {
+	protected static void cleanField(Field f, object) {
 		if (f.type == String) {
 			f.setAccessible true
 			String field = f.get object
